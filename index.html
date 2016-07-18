@@ -8,8 +8,6 @@
     <script src="js/index.js"></script>
 
     <script type="text/javascript">
-    price = 0;
-    coinName = "a";
       $(document).ready(function() {
         $(".hidden").hide();
 
@@ -46,8 +44,6 @@
           $.getJSON('https://api.cryptocoincharts.info/tradingPair/' + coinID +'_usd', function(data) {
             coinName = data.coin1;
             alert(coinName);
-            price = data.price;
-            alert(price);
           })
 
           var coinsBoughtFloat = parseFloat(coinsBought);
