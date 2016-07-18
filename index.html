@@ -50,9 +50,10 @@
           var moneySpent = coinsBoughtFloat*costPerCoinFloat;
           var currentValue = coinsBoughtFloat*jsonData.price //TODO: replace 680 with actual price
           var currentProfit = currentValue-moneySpent;
+          var coinName = jsonData.coin1;
 
           $("#investmentTable tr:last").after(" <tr> \
-            <td data-th='Name'>" + jsonData.name1 + "</td> \
+            <td data-th='Name'>" + coinName + "</td> \
             <td data-th='Owned'>" + coinsBought + "</td> \
             <td data-th='CostPer'>" + costPerCoin + "</td> \
             <td data-th='Profit'>" + "$" + currentProfit + "</td> \
