@@ -44,7 +44,6 @@
           $.getJSON('https://api.cryptocoincharts.info/tradingPair/' + coinID +'_usd', function(data) {
             var coinName = data.coin1;
             var price = data.price;
-            alert(coinName);
           })
 
           var coinsBoughtFloat = parseFloat(coinsBought);
@@ -54,7 +53,7 @@
           var currentProfit = currentValue-moneySpent;
 
           $("#investmentTable tr:last").after(" <tr> \
-            <td data-th='Name'>" + "coinTEMP" + "</td> \
+            <td data-th='Name'>" + coinName + "</td> \
             <td data-th='Owned'>" + coinsBought + "</td> \
             <td data-th='CostPer'>" + costPerCoin + "</td> \
             <td data-th='Profit'>" + "$" + currentProfit + "</td> \
