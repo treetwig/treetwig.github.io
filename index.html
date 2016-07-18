@@ -45,8 +45,7 @@
           
           });
 
-          var JSON = jQuery.parseJSON(jQuery.get("https://api.coinmarketcap.com/v1/ticker/" + coinID));
-          alert(JSON.name);
+          var JSON = jQuery.get('https://api.coinmarketcap.com/v1/ticker/bitcoin');
 
           var coinsBoughtFloat = parseFloat(coinsBought);
           var costPerCoinFloat = parseFloat(costPerCoin);
