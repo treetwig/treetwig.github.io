@@ -41,15 +41,19 @@
 
         if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin))){
 
+          var coinName = a;
+          var price = 0;
+
           $.getJSON('https://api.cryptocoincharts.info/tradingPair/' + coinID +'_usd', function(data) {
-            var coinName = data.coin1;
+            coinName = data.coin1;
+            price = data.price;
             //var price = data.price;
           })
 
           var coinsBoughtFloat = parseFloat(coinsBought);
           var costPerCoinFloat = parseFloat(costPerCoin);
           var moneySpent = coinsBoughtFloat*costPerCoinFloat;
-          var currentValue = coinsBoughtFloat*65; //TODO: replace 680 with actual price
+          var currentValue = coinsBoughtFloat*price; //TODO: replace 680 with actual price
           var currentProfit = currentValue-moneySpent;
 
           $("#investmentTable tr:last").after(" <tr> \
