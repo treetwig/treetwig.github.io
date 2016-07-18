@@ -1,1 +1,187 @@
-Hello world
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Crypto Investments</title>
+    <script src="js/modernizr.js" type="text/javascript"></script>
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/index.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $(".hidden").hide();
+
+        $("#coinNameTextbox").on("click", function() {
+          if ($(this).val() == "coin name")
+            $(this).val("")
+        });
+
+        $("#ownedTextbox").on("click", function() {
+          if ($(this).val() == "amount purchased")
+            $(this).val("")
+        });
+
+        $("#costPerCoinTextbox").on("click", function() {
+          if ($(this).val() == "price per coin")
+            $(this).val("")
+        });
+
+        $("#addInvestment").click(function(){
+          $(".hidden").show();
+        });
+
+        $("#saveInvestment").click(function(){
+          //add element to investments div on button click
+          var intRegex = /^\d+$/;
+          var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
+
+          var coinID = $('#coinNameTextbox').val();
+          var coinsBought = $('#ownedTextbox').val();
+          var costPerCoin = $('#costPerCoinTextbox').val();
+
+        if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin))){
+
+          $.getJSON('https://api.coinmarketcap.com/v1/ticker/' + coinID, function(data) {
+            alert(data.name);
+          });
+
+          var coinsBoughtFloat = parseFloat(coinsBought);
+          var costPerCoinFloat = parseFloat(costPerCoin);
+          var moneySpent = coinsBoughtFloat*costPerCoinFloat;
+          var currentValue = coinsBoughtFloat*680; //TODO: replace 680 with actual price
+          var currentProfit = currentValue-moneySpent;
+
+          $("#investmentTable tr:last").after(" <tr> \
+            <td data-th='Name'>" + "coinTEMP" + "</td> \
+            <td data-th='Owned'>" + coinsBought + "</td> \
+            <td data-th='CostPer'>" + costPerCoin + "</td> \
+            <td data-th='Profit'>" + "$" + currentProfit + "</td> \
+            </tr> ");
+          $(".hidden").hide();
+        }else{
+          alert('invalid input!');
+        }
+        });
+      });
+    </script>
+    <style>
+
+.textbox{
+}
+
+a { text-decoration: none; margin: 0 0px; }
+
+a.btn {
+  display: inline-block;
+  color: #666;
+  background-color: #eee;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  padding: 10px 30px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.3);
+  border-bottom-width: 3px;
+}
+
+  a.btn:hover {
+    background-color: #e3e3e3;
+    border-color: rgba(0,0,0,0.5);
+  }
+  
+  a.btn:active {
+    background-color: #CCC;
+    border-color: rgba(0,0,0,0.9);
+  }
+
+/* blue button */
+
+a.btn.btn-blue {
+  background-color: #34495E;
+  border-color: rgba(0,0,0,0.3);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+  color: #FFF;
+}
+
+  a.btn.btn-blue:hover {
+    background-color: #2b3c4e;
+    border-color: rgba(0,0,0,0.5);
+  }
+  
+  a.btn.btn-blue:active {
+    background-color: #22303d;
+    border-color: rgba(0,0,0,0.9);
+  }
+
+  #bottom-right {
+    right: 0;
+    bottom: 0;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    position: absolute;
+  }
+
+  .holder{        
+    width:100%;
+    display:block;
+}
+.popup{
+    width:800px;
+    border-radius: 7px;
+    background:#6b6a63;
+    margin:30px auto 0;
+    padding:6px;
+    position:absolute;
+    left: 50%;
+  top: 50%;
+  margin-left: -400px;
+    margin-top: -40px; /* This should be half of the total height of your div */
+}
+
+.content{
+    background:#BDBDBD;
+    padding: 28px 28px 28px 28px;
+}
+
+    </style>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+<body>
+  <h1>Investments</h1>
+  <table id="investmentTable" class="rwd-table">
+    <tr>
+      <th>Name</th>
+      <th>Amount Purchased</th>
+      <th>Price/Coin</th>
+      <th>Profit</th>
+    </tr>
+    <div class="investments">
+      <tr>
+        <td data-th="Name">Bitcoin</td>
+        <td data-th="Owned">Ƀ0.00750000</td>
+        <td data-th="CostPer">$645</tds>
+        <td data-th="Profit">$0.22</td>
+      </tr>
+    </div>
+  </table>
+  <a class="btn btn-blue" href="#" id="addInvestment">Add Investment</a>
+
+  <div class="hidden holder" id="investmentScreen">
+    <div id="popup" class="popup">
+      <div class="content">
+        <form>
+          <input type="text" class="textbox" id="coinNameTextbox" value="coinmarketcap id" />
+          <input type="text" class="textbox" id="ownedTextbox" value="amount purchased" />
+          <input type="text" class="textbox" id="costPerCoinTextbox" value="price per coin" />
+        </form>
+        <div id="bottom-right">
+          <a href="#" class="btn btn-blue" id="saveInvestment">Save</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
