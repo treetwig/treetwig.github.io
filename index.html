@@ -43,7 +43,7 @@
           $.getJSON('https://api.cryptocoincharts.info/tradingPair/' + coinID +'_usd', function(data) {
             var coinName = data.coin1;
             alert(coinName);
-          })
+          });
 
           var coinsBoughtFloat = parseFloat(coinsBought);
           var costPerCoinFloat = parseFloat(costPerCoin);
