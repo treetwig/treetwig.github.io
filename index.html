@@ -41,9 +41,12 @@
 
         if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin))){
 
-          $.getJSON('https://www.api.coinmarketcap.com/v1/ticker/' + coinID, function(data) {
-            alert(data.name);
+          jQuery.get('http://localhost/foo.txt', function(data) {
+          
           });
+
+          var JSON = jQuery.parseJSON(jQuery.get("https://api.coinmarketcap.com/v1/ticker/" + coinID));
+          alert(JSON.name);
 
           var coinsBoughtFloat = parseFloat(coinsBought);
           var costPerCoinFloat = parseFloat(costPerCoin);
