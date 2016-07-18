@@ -40,7 +40,7 @@
           var costPerCoin = $('#costPerCoinTextbox').val();
 
         if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin))){;
-
+          var coinName;
           $.getJSON('https://api.cryptocoincharts.info/tradingPair/' + coinID +'_usd', function(data) {
             coinName = data.coin1;
             alert(coinName);
