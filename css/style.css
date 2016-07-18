@@ -81,3 +81,79 @@ h1 {
 .rwd-table th, .rwd-table td:before {
   color: #dd5;
 }
+
+a { text-decoration: none; margin: 0 0px; }
+
+a.btn {
+  display: inline-block;
+  color: #666;
+  background-color: #eee;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  padding: 10px 30px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.3);
+  border-bottom-width: 3px;
+}
+
+  a.btn:hover {
+    background-color: #e3e3e3;
+    border-color: rgba(0,0,0,0.5);
+  }
+  
+  a.btn:active {
+    background-color: #CCC;
+    border-color: rgba(0,0,0,0.9);
+  }
+
+/* blue button */
+
+a.btn.btn-blue {
+  background-color: #34495E;
+  border-color: rgba(0,0,0,0.3);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+  color: #FFF;
+}
+
+  a.btn.btn-blue:hover {
+    background-color: #2b3c4e;
+    border-color: rgba(0,0,0,0.5);
+  }
+  
+  a.btn.btn-blue:active {
+    background-color: #22303d;
+    border-color: rgba(0,0,0,0.9);
+  }
+
+  #bottom-right {
+    right: 0;
+    bottom: 0;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    position: absolute;
+  }
+
+  .holder{        
+    width:100%;
+    display:block;
+}
+.popup{
+    width:800px;
+    border-radius: 7px;
+    background:#6b6a63;
+    margin:30px auto 0;
+    padding:6px;
+    position:absolute;
+    left: 50%;
+  top: 50%;
+  margin-left: -400px;
+    margin-top: -40px; /* This should be half of the total height of your div */
+}
+
+.content{
+    background:#BDBDBD;
+    padding: 28px 28px 28px 28px;
+}
