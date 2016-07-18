@@ -41,11 +41,7 @@
 
         if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin))){
 
-          jQuery.get('http://localhost/foo.txt', function(data) {
-          
-          });
-
-          $.getJSON('path/to/json/file.json', function(data) {
+          $.getJSON('http://api.cryptocoincharts.info/tradingPair/' + coinID +'_usd&callback=?', function(data) {
             var coinName = data.coin1;
             alert(coinName);
           })
