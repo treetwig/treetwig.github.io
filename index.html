@@ -56,9 +56,9 @@
             success: function (json) {
               jsonData = json;
               console.log(json.id);
-              /*if (json.id){
-
-              }*/
+              if (json.id == 'null'){
+                alert("NULL");
+              }
             }
           });
 
