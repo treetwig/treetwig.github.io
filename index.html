@@ -49,15 +49,18 @@
         $(document).keyup(function(event) {
           if(event.which === 27) {
             $('.hidden').hide();
+            $('#overlay-back').fadeOut(500);
           }
         });
 
         $("#closeButton").click(function(){
           $('.hidden').hide();
+          $('#overlay-back').fadeOut(500);
         });
 
         $("#addInvestment").click(function(){
           $(".hidden").show();
+          $('#overlay-back').fadeIn(500);
         });
 
         //DELETE FUNCTION
@@ -109,7 +112,6 @@
               var coinName = jsonData.coin1;
 
             localStorage.setItem(localStorage.length, "{\"id\":\""+jsonData.id+"\", \"costPerCoin\":\""+costPerCoin+"\", \"coinsBought\":\""+coinsBought+"\", \"profit\":\""+profit+"\", \"coinName\":\""+jsonData.coin1+"\"}");
-            $(".hidden").hide();
             added++
             location.reload();
 
@@ -128,7 +130,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
 <body>
-  <h1>Altcoin Investments</h1>
+<div id="overlay-back"></div>
+  <h1><u>Altcoin Investments</u></h1>
   <table id="investmentTable" class="rwd-table">
     <tr>
       <th>Name</th>
@@ -143,7 +146,7 @@
   <a class="btn btn-blue" href="#" id="addInvestment">Add Investment</a>
 
   <div id="donationbox">
-  <p style="color:white;"><i style="color:#F03E53;" class="material-icons">favorite</i> bitcoin donations accepted: 1MKtknUDY6P5cinAqUb9f5XNqxYiv3ptA9</p>
+  <p style="color:white;"><i style="color:#F03E53;" class="material-icons">favorite</i> bitcoin donations appreciated: 1MKtknUDY6P5cinAqUb9f5XNqxYiv3ptA9</p>
   <div id="donationIMGContainer"><img id="donationImage" width="170px" height="170px" src="https://dl.dropboxusercontent.com/u/54904485/qr.png" /></div>
   </div>
 
