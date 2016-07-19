@@ -60,8 +60,8 @@
             }
           });
 
-          if(jsonData.id != 'assdsdsdsd'){
-            console.log("null value detected");
+          if (jsonData.id === undefined || jsonData.id === null) {
+             console.log("null vaue");
           }
 
           var coinsBoughtFloat = parseFloat(coinsBought);
