@@ -13,29 +13,34 @@
         $(".hidden").hide();
 
         if (localStorage.getItem("lastID") === null) {
+          console.log("could not find lastID creating new one.");
           tableID = 1;
         }else{
           var tableID = localStorage.getItem('lastID');
+          console.log("found lastID with value of: " + tableID);
         }
 
-        function addElement(importedJSONData){
-          console.log(importedJSONData);
-          var obj = jQuery.parseJSON(importedJSONData);
-          console.log(obj.coinName);
+        var added = 0;
 
-            $("#investmentTable tr:last").after(" <tr id=" + tableID + "> \
+        function addElement(importedJSONData){
+          console.log("loaded: " + importedJSONData);
+          var obj = jQuery.parseJSON(importedJSONData);
+
+            $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
             <td data-th='Name'>" + obj.coinName + "</td> \
             <td data-th='Owned'>" + obj.coinsBought + "</td> \
             <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
             <td data-th='Profit'>" + "Ƀ" + obj.profit + "</td> \
-            <td data-th='ID'>" + obj.tableID + "</td> \
+            <td data-th='ID'><a href='#' class='deleteLink' id='deleteButton_"+added+"'>" + added + "</a></td> \
             </tr> ");
         }
         var storageLength = localStorage.length;
         console.log("localStorage length: " + storageLength);
         if(window.localStorage.length != null){
-        for(var i = 1, len = localStorage.length; i < len; ++i){
+        for(var i = 0, len = localStorage.length; i < len; ++i){
+          
           addElement(localStorage[i]);
+          added++;
         }
       }
 
@@ -47,6 +52,23 @@
 
         $("#addInvestment").click(function(){
           $(".hidden").show();
+        });
+
+        //DELETE FUNCTION
+        $(".deleteLink").click(function(){
+          clickedLinkID = $(this).attr('id');
+          var res = clickedLinkID.split("_");
+          localStorage.removeItem(res[1]);
+          var totalEntries = localStorage.length + 1;
+          var resINT = parseInt(res[1]);
+          console.log("total entries: " + totalEntries);
+          for(var i = resINT+1; i<totalEntries; i++){
+            console.log(i);
+            var toDelete = localStorage.getItem(i);
+            localStorage.setItem(i-1, toDelete);
+            localStorage.removeItem(i);
+          }
+          //location.reload();
         });
 
         $("#saveInvestment").click(function(){
@@ -83,19 +105,19 @@
             alert("invalid id");
           }
 
-          $("#investmentTable tr:last").after(" <tr id=" + tableID + "> \
+          addedOne = added;
+
+          $("#investmentTable tr:last").after(" <tr id=entry_" + addedOne + "> \
             <td data-th='Name'>" + coinName + "</td> \
             <td data-th='Owned'>" + coinsBought + "</td> \
             <td data-th='CostPer'>" + "Ƀ" + costPerCoin + "</td> \
             <td data-th='Profit'>" + "Ƀ" + profit + "</td> \
-            <td data-th='ID'>" + tableID + "</td> \
+            <td data-th='ID'><a href='#' class='deleteLink' id='deleteButton_" + addedOne + "'>" + addedOne + "</a></td> \
             </tr> ");
 
-            localStorage.setItem(tableID, "{\"id\":\""+jsonData.id+"\", \"costPerCoin\":\""+costPerCoin+"\", \"coinsBought\":\""+coinsBought+"\", \"profit\":\""+profit+"\", \"coinName\":\""+jsonData.coin1+"\", \"tableID\":\""+tableID+"\"}");
-
-            tableID++;
-            localStorage.setItem('lastID', tableID);
+            localStorage.setItem(localStorage.length, "{\"id\":\""+jsonData.id+"\", \"costPerCoin\":\""+costPerCoin+"\", \"coinsBought\":\""+coinsBought+"\", \"profit\":\""+profit+"\", \"coinName\":\""+jsonData.coin1+"\", \"tableID\":\""+addedOne+"\"}");
             $(".hidden").hide();
+            added++
         }else{
           alert('Invalid entry!');
         }
