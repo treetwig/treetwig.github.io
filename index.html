@@ -22,7 +22,7 @@
             <td data-th='Owned'>" + obj.coinsBought + "</td> \
             <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
             <td data-th='Profit'>" + "Ƀ" + obj.profit + "</td> \
-            <td data-th='ID'><a href='#' class='deleteLink' id='deleteButton_"+added+"'>" + added + "</a></td> \
+            <td data-th='ID'><i class='material-icons' id='deleteButton_"+added+"'>delete</a></td> \
             </tr> ");
         }
         var storageLength = localStorage.length;
@@ -46,7 +46,7 @@
         });
 
         //DELETE FUNCTION
-        $(".deleteLink").click(function(){
+        $(".material-icons").click(function(){
           clickedLinkID = $(this).attr('id');
           var res = clickedLinkID.split("_");
           localStorage.removeItem(res[1]);
@@ -118,6 +118,7 @@
     </script>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
 <body>
   <h1>Altcoin Investments</h1>
@@ -127,7 +128,7 @@
       <th>Amount Purchased</th>
       <th>Price/Coin</th>
       <th>Profit</th>
-      <th>ID</th>
+      <th></th>
     </tr>
     <div class="investments">
     </div>

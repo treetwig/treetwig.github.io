@@ -194,3 +194,7 @@ a.btn.btn-blue {
 :-ms-input-placeholder {  
    color: #5E5E5E;  
 }
+
+.material-icons{
+  cursor: pointer;
+}
