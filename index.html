@@ -11,15 +11,6 @@
       var jsonData = "";
       $(document).ready(function() {
         $(".hidden").hide();
-
-        if (localStorage.getItem("lastID") === null) {
-          console.log("could not find lastID creating new one.");
-          tableID = 1;
-        }else{
-          var tableID = localStorage.getItem('lastID');
-          console.log("found lastID with value of: " + tableID);
-        }
-
         var added = 0;
 
         function addElement(importedJSONData){
@@ -107,17 +98,18 @@
 
           addedOne = added;
 
-          $("#investmentTable tr:last").after(" <tr id=entry_" + addedOne + "> \
+          /*$("#investmentTable tr:last").after(" <tr id=entry_" + addedOne + "> \
             <td data-th='Name'>" + coinName + "</td> \
             <td data-th='Owned'>" + coinsBought + "</td> \
             <td data-th='CostPer'>" + "Ƀ" + costPerCoin + "</td> \
             <td data-th='Profit'>" + "Ƀ" + profit + "</td> \
             <td data-th='ID'><a href='#' class='deleteLink' id='deleteButton_" + addedOne + "'>" + addedOne + "</a></td> \
-            </tr> ");
+            </tr> ");*/
 
-            localStorage.setItem(localStorage.length, "{\"id\":\""+jsonData.id+"\", \"costPerCoin\":\""+costPerCoin+"\", \"coinsBought\":\""+coinsBought+"\", \"profit\":\""+profit+"\", \"coinName\":\""+jsonData.coin1+"\", \"tableID\":\""+addedOne+"\"}");
+            localStorage.setItem(localStorage.length, "{\"id\":\""+jsonData.id+"\", \"costPerCoin\":\""+costPerCoin+"\", \"coinsBought\":\""+coinsBought+"\", \"profit\":\""+profit+"\", \"coinName\":\""+jsonData.coin1+"\"}");
             $(".hidden").hide();
             added++
+            location.reload();
         }else{
           alert('Invalid entry!');
         }
