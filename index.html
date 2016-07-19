@@ -71,7 +71,7 @@
               var profit = currentProfit.toFixed(2);
               var coinName = jsonData.coin1;
           }
-          if (jsonData.id === undefined || jsonData.id === null) {
+          else{
             $.ajax({
               url: 'https://api.cryptocoincharts.info/tradingPair/' + coinID +'_btc',
               async: false,
@@ -95,9 +95,6 @@
             <td data-th='Profit'>" + "$" + profit + "</td> \
             </tr> ");
           $(".hidden").hide();
-        else{
-          alert("Invalid ID entered!")
-        }
         }else{
           alert('Invalid entry!');
         }
