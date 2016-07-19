@@ -136,6 +136,14 @@ a.btn.btn-blue {
     position: absolute;
   }
 
+  #top-right {
+    right: 0;
+    top: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+    position: absolute;
+  }
+
   .holder{        
     width:100%;
     display:block;

@@ -22,7 +22,7 @@
             <td data-th='Owned'>" + obj.coinsBought + "</td> \
             <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
             <td data-th='Profit'>" + "Ƀ" + obj.profit + "</td> \
-            <td data-th='ID'><i class='material-icons' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</a></td> \
+            <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</a></td> \
             </tr> ");
         }
         var storageLength = localStorage.length;
@@ -52,12 +52,16 @@
           }
         });
 
+        $("#closeButton").click(function(){
+          $('.hidden').hide();
+        });
+
         $("#addInvestment").click(function(){
           $(".hidden").show();
         });
 
         //DELETE FUNCTION
-        $(".material-icons").click(function(){
+        $(".material-icons.delete").click(function(){
           clickedLinkID = $(this).attr('id');
           var res = clickedLinkID.split("_");
           localStorage.removeItem(res[1]);
@@ -103,24 +107,16 @@
               var currentProfit = currentValue-moneySpent;
               var profit = currentProfit.toFixed(8);
               var coinName = jsonData.coin1;
-          }else{
-            alert("invalid id");
-          }
-
-          addedOne = added;
-
-          /*$("#investmentTable tr:last").after(" <tr id=entry_" + addedOne + "> \
-            <td data-th='Name'>" + coinName + "</td> \
-            <td data-th='Owned'>" + coinsBought + "</td> \
-            <td data-th='CostPer'>" + "Ƀ" + costPerCoin + "</td> \
-            <td data-th='Profit'>" + "Ƀ" + profit + "</td> \
-            <td data-th='ID'><a href='#' class='deleteLink' id='deleteButton_" + addedOne + "'>" + addedOne + "</a></td> \
-            </tr> ");*/
 
             localStorage.setItem(localStorage.length, "{\"id\":\""+jsonData.id+"\", \"costPerCoin\":\""+costPerCoin+"\", \"coinsBought\":\""+coinsBought+"\", \"profit\":\""+profit+"\", \"coinName\":\""+jsonData.coin1+"\"}");
             $(".hidden").hide();
             added++
             location.reload();
+
+          }else{
+            alert("invalid id");
+          }
+
         }else{
           alert('Invalid entry!');
         }
@@ -159,6 +155,7 @@
           <input type="text" class="enjoy-css" id="ownedTextbox" placeholder="amount purchased" />
           <input type="text" class="enjoy-css" id="costPerCoinTextbox" placeholder="price per coin (Ƀ)" />
         </form>
+        <div id="top-right"><i id="closeButton" class="material-icons">close</i></div>
         <div id="bottom-right">
           <a href="#" class="btn btn-blue" id="saveInvestment">Save</a>
         </div>
