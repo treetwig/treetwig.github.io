@@ -9,6 +9,7 @@
 
     <script type="text/javascript">
               var jsonData = "";
+              var tableID = 1;
       $(document).ready(function() {
 
         $(".hidden").hide();
@@ -75,9 +76,11 @@
           $("#investmentTable tr:last").after(" <tr> \
             <td data-th='Name'>" + coinName + "</td> \
             <td data-th='Owned'>" + coinsBought + "</td> \
-            <td data-th='CostPer'>" + costPerCoin + "</td> \
-            <td data-th='Profit'>" + "$" + profit + "</td> \
+            <td data-th='CostPer'>" + "Ƀ" + costPerCoin + "</td> \
+            <td data-th='Profit'>" + "Ƀ" + profit + "</td> \
+            <td data-th='ID'>" + tableID + "</td> \
             </tr> ");
+          tableID = tableID + 1;
           $(".hidden").hide();
         }else{
           alert('Invalid entry!');
@@ -96,6 +99,7 @@
       <th>Amount Purchased</th>
       <th>Price/Coin</th>
       <th>Profit</th>
+      <th>ID</th>
     </tr>
     <div class="investments">
     </div>
