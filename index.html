@@ -13,6 +13,12 @@
 
         $(".hidden").hide();
 
+        $(document).keyup(function(event) {
+          if(event.which === 27) {
+            $('.hidden').hide();
+          }
+        });
+
         $("#coinNameTextbox").on("click", function() {
           if ($(this).val() == "coin name")
             $(this).val("")
