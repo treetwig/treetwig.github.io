@@ -56,11 +56,13 @@
             success: function (json) {
               jsonData = json;
               console.log(json.id);
-              if (json.id == NULL){
-                alert("NULL");
-              }
+              console.log(json.price);
             }
           });
+
+          if(jsonData.id == 'null'){
+            console.log("null value detected");
+          }
 
           var coinsBoughtFloat = parseFloat(coinsBought);
           var costPerCoinFloat = parseFloat(costPerCoin);
