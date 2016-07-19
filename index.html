@@ -45,6 +45,7 @@
             jsonData = data;
           });
 
+          if(typeof jsonData.name1 !=== undefined){
           var coinsBoughtFloat = parseFloat(coinsBought);
           var costPerCoinFloat = parseFloat(costPerCoin);
           var moneySpent = coinsBoughtFloat*costPerCoinFloat;
@@ -60,6 +61,7 @@
             <td data-th='Profit'>" + "$" + profit + "</td> \
             </tr> ");
           $(".hidden").hide();
+        }
         }else{
           alert('Invalid entry!');
         }
