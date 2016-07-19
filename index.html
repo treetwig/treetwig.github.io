@@ -60,9 +60,8 @@
             }
           });
 
-          if (jsonData.id === undefined || jsonData.id === null) {
+          if (jsonData.id !== undefined || jsonData.id !== null) {
              console.log("null vaue");
-          }
 
           var coinsBoughtFloat = parseFloat(coinsBought);
           var costPerCoinFloat = parseFloat(costPerCoin);
@@ -79,6 +78,10 @@
             <td data-th='Profit'>" + "$" + profit + "</td> \
             </tr> ");
           $(".hidden").hide();
+        }
+        else{
+          alert("Invalid ID entered!")
+        }
         }else{
           alert('Invalid entry!');
         }
