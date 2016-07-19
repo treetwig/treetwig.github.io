@@ -203,7 +203,7 @@ a.btn.btn-blue {
     position: fixed;
 
     /* set position */
-    top: 1px;
+    bottom: 1px;
     right: 1px;
 
     /* must have dimension */
