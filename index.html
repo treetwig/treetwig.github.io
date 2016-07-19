@@ -35,6 +35,17 @@
         }
       }
 
+        $("#helpicon").click(function() {
+          var win = window.open('https://treetwig.github.io/help.html', '_blank');
+          if (win) {
+    //Browser has allowed it to be opened
+            win.focus();
+          } else {
+    //Browser has blocked it
+            alert('Please allow popups for this website');
+          }
+        });
+
         $(document).keyup(function(event) {
           if(event.which === 27) {
             $('.hidden').hide();
@@ -128,7 +139,7 @@
       <th>Amount Purchased</th>
       <th>Price/Coin</th>
       <th>Profit</th>
-      <th><i class="material-icons">help_outline</i></th>
+      <th><i id="helpicon" class="material-icons">help_outline</i></th>
     </tr>
     <div class="investments">
     </div>
