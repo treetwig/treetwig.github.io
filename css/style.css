@@ -198,3 +198,50 @@ a.btn.btn-blue {
 .material-icons{
   cursor: pointer;
 }
+
+#donationbox{
+    position: fixed;
+
+    /* set position */
+    top: 1px;
+    right: 1px;
+
+    /* must have dimension */
+    width: 335px;
+    height: 250px;
+    padding-left: 19px;
+    padding-right: 19px;
+    padding-bottom: 19px;
+    margin: 10px;
+
+    background-color: #34495E;
+    border:3px solid #253342;
+    border-radius: 5px
+}
+
+#donationIMGContainer{
+  background-color: white;
+  width: 180px;
+  height: 180px;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  border-radius: 5px;
+  position: relative;
+  border:2px solid #253342;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+#donationImage{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
