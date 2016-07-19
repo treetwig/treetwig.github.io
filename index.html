@@ -16,14 +16,23 @@
         function addElement(importedJSONData){
           console.log("loaded: " + importedJSONData);
           var obj = jQuery.parseJSON(importedJSONData);
-
-            $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
-            <td data-th='Name'>" + obj.coinName + "</td> \
-            <td data-th='Owned'>" + obj.coinsBought + "</td> \
-            <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
-            <td data-th='Profit'>" + "Ƀ" + obj.profit + "</td> \
-            <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</a></td> \
-            </tr> ");
+            if(obj.coinName  != 'Bitcoin'){
+              $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
+              <td data-th='Name'>" + obj.coinName + "</td> \
+              <td data-th='Owned'>" + obj.coinsBought + "</td> \
+              <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
+              <td data-th='Profit'>" + "Ƀ" + obj.profit + "</td> \
+              <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</a></td> \
+              </tr> ");
+            }else{
+              $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
+              <td data-th='Name'>" + obj.coinName + "</td> \
+              <td data-th='Owned'>" + obj.coinsBought + "</td> \
+              <td data-th='CostPer'>" + "$" + obj.costPerCoin + "</td> \
+              <td data-th='Profit'>" + "$" + obj.profit + "</td> \
+              <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</a></td> \
+              </tr> ");
+            }
         }
         var storageLength = localStorage.length;
         console.log("localStorage length: " + storageLength);
@@ -89,9 +98,19 @@
           var coinsBought = $('#ownedTextbox').val();
           var costPerCoin = $('#costPerCoinTextbox').val();
 
-        if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin)) && coinID != 'btc'){;
+        if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin)) && coinID){;
 
-          $.ajax({
+          if(coinID == 'btc'){
+            $.ajax({
+            url: 'https://api.cryptocoincharts.info/tradingPair/' + coinID +'_usd',
+            async: false,
+            dataType: 'json',
+            success: function (json) {
+              jsonData = json;
+            }
+          });
+          }else{
+            $.ajax({
             url: 'https://api.cryptocoincharts.info/tradingPair/' + coinID +'_btc',
             async: false,
             dataType: 'json',
@@ -99,6 +118,7 @@
               jsonData = json;
             }
           });
+          }
 
           if (jsonData.id != undefined || jsonData.id != null) {
               console.log("valid id entered");
@@ -154,9 +174,9 @@
     <div id="popup" class="popup">
       <div class="content">
         <form>
-          <input type="text" class="enjoy-css" id="coinNameTextbox" placeholder="lsk, ltc, eth, etc." />
+          <input type="text" class="enjoy-css" id="coinNameTextbox" placeholder="btc, lsk, ltc, eth, etc." />
           <input type="text" class="enjoy-css" id="ownedTextbox" placeholder="amount purchased" />
-          <input type="text" class="enjoy-css" id="costPerCoinTextbox" placeholder="price per coin (Ƀ)" />
+          <input type="text" class="enjoy-css" id="costPerCoinTextbox" placeholder="cpc: btc=$ alt=Ƀ" />
         </form>
         <div id="top-right"><i id="closeButton" class="material-icons">close</i></div>
         <div id="bottom-right">
