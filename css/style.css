@@ -143,7 +143,7 @@ a.btn.btn-blue {
 .popup{
     width:800px;
     border-radius: 7px;
-    background:#6b6a63;
+    background:#253342;
     margin:30px auto 0;
     padding:6px;
     position:absolute;
@@ -154,6 +154,43 @@ a.btn.btn-blue {
 }
 
 .content{
-    background:#BDBDBD;
+    background:#9E9E9E;
     padding: 28px 28px 28px 28px;
+}
+
+.enjoy-css {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  padding: 10px;
+  border: 2px solid #253342;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  color: rgba(0,0,0,1);
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: #E3E3E3;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.66) ;
+  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+::-webkit-input-placeholder {
+   color: #5E5E5E;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #5E5E5E;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #5E5E5E;  
+}
+
+:-ms-input-placeholder {  
+   color: #5E5E5E;  
 }

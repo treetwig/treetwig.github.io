@@ -45,21 +45,6 @@
           }
         });
 
-        $("#coinNameTextbox").on("click", function() {
-          if ($(this).val() == "coin name")
-            $(this).val("")
-        });
-
-        $("#ownedTextbox").on("click", function() {
-          if ($(this).val() == "amount purchased")
-            $(this).val("")
-        });
-
-        $("#costPerCoinTextbox").on("click", function() {
-          if ($(this).val() == "price per coin")
-            $(this).val("")
-        });
-
         $("#addInvestment").click(function(){
           $(".hidden").show();
         });
@@ -139,9 +124,9 @@
     <div id="popup" class="popup">
       <div class="content">
         <form>
-          <input type="text" class="textbox" id="coinNameTextbox" value="coinmarketcap id" />
-          <input type="text" class="textbox" id="ownedTextbox" value="amount purchased" />
-          <input type="text" class="textbox" id="costPerCoinTextbox" value="price per coin" />
+          <input type="text" class="enjoy-css" id="coinNameTextbox" placeholder="lsk, ltc, eth, etc." />
+          <input type="text" class="enjoy-css" id="ownedTextbox" placeholder="amount purchased" />
+          <input type="text" class="enjoy-css" id="costPerCoinTextbox" placeholder="price per coin (Ƀ)" />
         </form>
         <div id="bottom-right">
           <a href="#" class="btn btn-blue" id="saveInvestment">Save</a>
