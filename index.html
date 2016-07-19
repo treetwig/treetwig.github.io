@@ -73,7 +73,7 @@
             alert("invalid id");
           }
 
-          $("#investmentTable tr:last").after(" <tr> \
+          $("#investmentTable tr:last").after(" <tr id="tableID"> \
             <td data-th='Name'>" + coinName + "</td> \
             <td data-th='Owned'>" + coinsBought + "</td> \
             <td data-th='CostPer'>" + "Ƀ" + costPerCoin + "</td> \
@@ -92,7 +92,7 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
 <body>
-  <h1>Investments</h1>
+  <h1>Altcoin Investments</h1>
   <table id="investmentTable" class="rwd-table">
     <tr>
       <th>Name</th>
