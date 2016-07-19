@@ -9,9 +9,36 @@
 
     <script type="text/javascript">
       var jsonData = "";
-      var tableID = 1;
       $(document).ready(function() {
         $(".hidden").hide();
+
+        if (localStorage.getItem("lastID") === null) {
+          tableID = 1;
+        }else{
+          var tableID = localStorage.getItem('lastID');
+        }
+
+        function addElement(importedJSONData){
+          console.log(importedJSONData);
+          var obj = jQuery.parseJSON(importedJSONData);
+          console.log(obj.coinName);
+
+            $("#investmentTable tr:last").after(" <tr id=" + tableID + "> \
+            <td data-th='Name'>" + obj.coinName + "</td> \
+            <td data-th='Owned'>" + obj.coinsBought + "</td> \
+            <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
+            <td data-th='Profit'>" + "Ƀ" + obj.profit + "</td> \
+            <td data-th='ID'>" + obj.tableID + "</td> \
+            </tr> ");
+        }
+        var storageLength = localStorage.length;
+        console.log("localStorage length: " + storageLength);
+        if(window.localStorage.length != null){
+        for(var i = 1, len = localStorage.length; i < len; ++i){
+          addElement(localStorage[i]);
+        }
+      }
+
         $(document).keyup(function(event) {
           if(event.which === 27) {
             $('.hidden').hide();
@@ -78,8 +105,12 @@
             <td data-th='Profit'>" + "Ƀ" + profit + "</td> \
             <td data-th='ID'>" + tableID + "</td> \
             </tr> ");
-          tableID = tableID + 1;
-          $(".hidden").hide();
+
+            localStorage.setItem(tableID, "{\"id\":\""+jsonData.id+"\", \"costPerCoin\":\""+costPerCoin+"\", \"coinsBought\":\""+coinsBought+"\", \"profit\":\""+profit+"\", \"coinName\":\""+jsonData.coin1+"\", \"tableID\":\""+tableID+"\"}");
+
+            tableID++;
+            localStorage.setItem('lastID', tableID);
+            $(".hidden").hide();
         }else{
           alert('Invalid entry!');
         }
