@@ -15,6 +15,16 @@
 
         function addElement(importedJSONData){
           console.log("loaded: " + importedJSONData);
+          var obj = jQuery.parseJSON(importedJSONData);
+            if(obj.coinName  != 'Bitcoin'){
+              $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
+              <td data-th='Name'>" + obj.coinName + "</td> \
+              <td data-th='Owned'>" + obj.coinsBought + "</td> \
+              <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
+              <td data-th='Profit'>" + "Ƀ" + obj.profit + "</td> \
+              <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</a></td> \
+              </tr> ");
+            }else{
               $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
               <td data-th='Name'>" + obj.coinName + "</td> \
               <td data-th='Owned'>" + obj.coinsBought + "</td> \
