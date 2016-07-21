@@ -6,7 +6,7 @@
     <script src="js/modernizr.js" type="text/javascript"></script>
     <script src="js/jquery-3.1.0.min.js"></script>
     <script src="js/index.js"></script>
-    
+
 <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
 <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16">
@@ -19,15 +19,27 @@
 <meta name="theme-color" content="#253342">
 
     <script type="text/javascript">
+      //global variables
       var jsonData = "";
+      var bitcoinProfitArray = [];
+      var altcoinProfitArray = [];
+      var bitcoinProfit = 0;
+      var altcoinProfit = 0;
+
       $(document).ready(function() {
         $(".hidden").hide();
         var added = 0;
+
+        function add(a, b) {
+          return a + b;
+        }
 
         function addElement(importedJSONData){
           console.log("loaded: " + importedJSONData);
           var obj = jQuery.parseJSON(importedJSONData);
             if(obj.coinName  != 'Bitcoin'){
+              //load altcoin~bitcoin entries
+
               $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
               <td data-th='Name'>" + obj.coinName + "</td> \
               <td data-th='Owned'>" + obj.coinsBought + "</td> \
@@ -35,7 +47,11 @@
               <td data-th='Profit'>" + "Ƀ" + obj.profit + "</td> \
               <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</a></td> \
               </tr> ");
+
+            altcoinProfitArray[added] = parseFloat(obj.profit);
             }else{
+              //load bitcoin~usd entries
+
               $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
               <td data-th='Name'>" + obj.coinName + "</td> \
               <td data-th='Owned'>" + obj.coinsBought + "</td> \
@@ -43,8 +59,11 @@
               <td data-th='Profit'>" + "$" + obj.profit + "</td> \
               <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</a></td> \
               </tr> ");
+
+              bitcoinProfitArray[added] = parseFloat(obj.profit);
             }
         }
+
         var storageLength = localStorage.length;
         console.log("localStorage length: " + storageLength);
         if(window.localStorage.length != null){
@@ -54,6 +73,26 @@
           added++;
         }
       }
+          altcoinProfit = altcoinProfitArray.reduce(add, 0).toFixed(8);
+          bitcoinProfit = bitcoinProfitArray.reduce(add, 0).toFixed(2);
+
+          $("#altcoinProfit").text("Ƀ" + altcoinProfit);
+          if(altcoinProfit > 0){
+            //set text color green
+            $("#altcoinProfit").attr("style", "color:#97F03E;");
+          }if(altcoinProfit < 0){
+            //set text color red
+            $("#altcoinProfit").attr("style", "color:#F03E3E;");
+          }
+
+          $("#bitcoinProfit").text("$" + bitcoinProfit);
+          if(bitcoinProfit > 0){
+            //set text color green
+            $("#bitcoinProfit").attr("style", "color:#97F03E;");
+          }if(bitcoinProfit < 0){
+            //set text color red
+            $("#bitcoinProfit").attr("style", "color:#F03E3E;");
+          }
 
         $("#helpicon").click(function() {
           var win = window.open('https://treetwig.github.io/help.html', '_blank');
@@ -132,14 +171,19 @@
           }
 
           if (jsonData.id != undefined || jsonData.id != null) {
-              console.log("valid id entered");
+              console.log("valid id entered, entered: " + jsonData.id);
 
               var coinsBoughtFloat = parseFloat(coinsBought);
               var costPerCoinFloat = parseFloat(costPerCoin);
               var moneySpent = coinsBoughtFloat*costPerCoinFloat;
               var currentValue = coinsBoughtFloat*jsonData.price
               var currentProfit = currentValue-moneySpent;
-              var profit = currentProfit.toFixed(8);
+              var profit = 0;
+              if(jsonData.id == 'btc\/usd'){
+                profit = currentProfit.toFixed(2);
+              }else{
+                profit = currentProfit.toFixed(8);
+              }
               var coinName = jsonData.coin1;
 
             localStorage.setItem(localStorage.length, "{\"id\":\""+jsonData.id+"\", \"costPerCoin\":\""+costPerCoin+"\", \"coinsBought\":\""+coinsBought+"\", \"profit\":\""+profit+"\", \"coinName\":\""+jsonData.coin1+"\"}");
@@ -178,7 +222,12 @@
 
   <div id="donationbox">
   <p style="color:white;"><i style="color:#F03E53;" class="material-icons">favorite</i> bitcoin donations appreciated: 1MKtknUDY6P5cinAqUb9f5XNqxYiv3ptA9</p>
-  <div id="donationIMGContainer"><img id="donationImage" width="170px" height="170px" src="https://dl.dropboxusercontent.com/u/54904485/qr.png" /></div>
+  <div id="donationIMGContainer"><img id="donationImage" width="170px" height="170px" src="img/qr.png" /></div>
+  </div>
+
+  <div id="profitBox">
+  <p style="color:#DDDD55;">Bitcoin profit: <span id="bitcoinProfit" style="color:white;">n/a</span></p>
+  <p style="color:#DDDD55;">Altcoin profit: <span id="altcoinProfit" style="color:white;">n/a</span></p>
   </div>
 
   <div class="hidden holder" id="investmentScreen">
