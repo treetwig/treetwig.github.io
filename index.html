@@ -28,6 +28,7 @@
 
       $(document).ready(function() {
         $(".hidden").hide();
+        $("#startMessage").hide();
         var added = 0;
 
         function add(a, b) {
@@ -73,6 +74,11 @@
           added++;
         }
       }
+
+        if(added == 0){
+          $("#startMessage").fadeIn(500);
+        }
+
           altcoinProfit = altcoinProfitArray.reduce(add, 0).toFixed(8);
           bitcoinProfit = bitcoinProfitArray.reduce(add, 0).toFixed(2);
 
@@ -228,6 +234,7 @@
   <div id="profitBox">
   <p style="color:#DDDD55;">Bitcoin profit: <span id="bitcoinProfit" style="color:white;">n/a</span></p>
   <p style="color:#DDDD55;">Altcoin profit: <span id="altcoinProfit" style="color:white;">n/a</span></p>
+  <p id="startMessage" style="color:white; font-size: 20px;">add an investment to begin!</p>
   </div>
 
   <div class="hidden holder" id="investmentScreen">
