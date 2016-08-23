@@ -26,6 +26,9 @@ function subscribe() {
   then(function(pushSubscription){
     sub = pushSubscription;
     console.log('Subscribed! Endpoint:', sub.endpoint);
+    var str = sub.endpoint;
+    var res = str.split("/");
+    console.log("key: " + res[5]);
     subscribeButton.textContent = 'Unsubscribe';
     isSubscribed = true;
   });
