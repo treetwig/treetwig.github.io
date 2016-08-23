@@ -26,9 +26,12 @@ function subscribe() {
   then(function(pushSubscription){
     sub = pushSubscription;
     console.log('Subscribed! Endpoint:', sub.endpoint);
+//send data to remote server
     var str = sub.endpoint;
     var res = str.split("/");
     console.log("key: " + res[5]);
+    $.post('/198.199.66.107', {key: res[5]});
+
     subscribeButton.textContent = 'Unsubscribe';
     isSubscribed = true;
   });
