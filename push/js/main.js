@@ -30,7 +30,13 @@ function subscribe() {
     var str = sub.endpoint;
     var res = str.split("/");
     console.log("key: " + res[5]);
-    $.post('https://198.199.66.107:8080', {key: res[5]});
+    $.get(
+        "https://198.199.66.107:8080",
+        {key: res[5]},
+        function(data){
+
+        }
+    );
 
     subscribeButton.textContent = 'Unsubscribe';
     isSubscribed = true;
