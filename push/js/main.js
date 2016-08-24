@@ -1,7 +1,7 @@
 var reg;
 var sub;
-var isSubscribed = false;
-var subscribeButton = document.querySelector('button');
+var subscribeButton = document.getElementById('subscribeButton');
+var unsubscribeButton = document.getElementById('unsubscribeButton');
 if ('serviceWorker' in navigator) {
   console.log('Service Worker is supported');
   navigator.serviceWorker.register('sw.js').then(function() {
@@ -15,11 +15,10 @@ if ('serviceWorker' in navigator) {
   });
 }
 subscribeButton.addEventListener('click', function() {
-  if (isSubscribed) {
-    unsubscribe();
-  } else {
     subscribe();
-  }
+});
+unsubscribeButton.addEventListener('click', function() {
+    unsubscribe();
 });
 function subscribe() {
   reg.pushManager.subscribe({userVisibleOnly: true}).
@@ -31,18 +30,12 @@ function subscribe() {
     var res = str.split("/");
     console.log("key: " + res[5]);
     window.location.href = 'http://198.199.66.107:8080/?key=' + res[5];
-
-    subscribeButton.textContent = 'Unsubscribe';
-    isSubscribed = true;
   });
 }
 function unsubscribe() {
   sub.unsubscribe().then(function(event) {
-    subscribeButton.textContent = 'Subscribe';
     console.log('Unsubscribed!', event);
-    isSubscribed = false;
   }).catch(function(error) {
     console.log('Error unsubscribing', error);
-    subscribeButton.textContent = 'Subscribe';
   });
 }
