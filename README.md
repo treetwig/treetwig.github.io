@@ -1,1 +1,1 @@
-Cryptocurrency Portfolio
+This is an open source cryptocurrency portfolio. It has experimental push notifications. Data is stored locally in the browser except for the api key for push notifications. Data is saved if the browser is closed or refreshed.
