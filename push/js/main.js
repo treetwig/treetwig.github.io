@@ -31,7 +31,7 @@ function subscribe() {
     var res = str.split("/");
     console.log("key: " + res[5]);
     $.get(
-        "https://198.199.66.107:8080",
+        "http://198.199.66.107:8080",
         {key: res[5]},
         function(data){
 
