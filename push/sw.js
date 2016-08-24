@@ -7,7 +7,7 @@ self.addEventListener('activate', function(event) {
   console.log('Activated', event);
 });
 self.addEventListener('push', function(event) {
-  console.log('Push message', event);
+  console.log('Your portfolio', event);
   var title = 'Your portfolio';
   event.waitUntil(
     self.registration.showNotification(title, {

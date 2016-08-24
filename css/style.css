@@ -118,6 +118,12 @@ a.btn.btn-blue {
   text-shadow: 0 1px 0 rgba(0,0,0,0.5);
   color: #FFF;
 }
+a.btn.btn-red {
+  background-color: #91574B;
+  border-color: rgba(0,0,0,0.3);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+  color: #FFF;
+}
 
   a.btn.btn-blue:hover {
     background-color: #2b3c4e;
