@@ -46,7 +46,6 @@ $(function() {
            	}
            }
       );
-<<<<<<< HEAD
 
 		$("#clearAll").click( function()
            {    
