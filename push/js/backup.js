@@ -39,6 +39,7 @@ $(function() {
            		for(i = 0; i < (dataArray.length)-1; i++){
            			localStorage.setItem(i, dataArray[i]);
            		}
+           		alert("backup restored");
            	}else{
            		alert("no file selected");
            		console.log("restore failed");
