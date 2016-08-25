@@ -2,20 +2,26 @@
 <html>
 <head>
   <script src="../js/jquery-3.1.0.min.js"></script>
+  <script src="js/backup.js"></script>
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="manifest" href="manifest.json">
-  <title>Push Notifications</title>
+  <!--<link rel="manifest" href="manifest.json">-->
+  <title>Settings</title>
 
 </head>
 
 <body>
 
-  <h1>Bitcoin Push Notifications</h1>
+  <h1>Settings</h1>
   <p>this is experimental!</p>
-  <button id="subscribeButton" class="subscribeButton">Subscribe</button>
-  <script src="js/main.js"></script>
+  <button id="subscribeButton" class="subscribeButton">Enable Bitcoin price alert</button>
+  <!--<script src="js/main.js"></script>-->
   <br/>
   <br/>
-
+  <button id="backupButton">Backup investments to .txt file</button>
+  <br/>
+  <br/>
+  <input type="file" id="fileInput" name="files[]" multiple />
+  <output id="list"></output>
+  <button id="upload">Restore backup</button>
 </body>
 </html>
