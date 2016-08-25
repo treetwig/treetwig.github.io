@@ -39,12 +39,14 @@ $(function() {
            		for(i = 0; i < (dataArray.length)-1; i++){
            			localStorage.setItem(i, dataArray[i]);
            		}
+           		alert("backup restored");
            	}else{
            		alert("no file selected");
            		console.log("restore failed");
            	}
            }
       );
+<<<<<<< HEAD
 
 		$("#clearAll").click( function()
            {    
@@ -54,3 +56,6 @@ $(function() {
       );
 
 });
+=======
+});
+>>>>>>> 85480e9f5c2c75b2239666d7abc80cd02262b037
