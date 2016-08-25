@@ -45,4 +45,12 @@ $(function() {
            	}
            }
       );
+
+		$("#clearAll").click( function()
+           {    
+           		localStorage.clear();
+           		alert("all investments cleared");
+           }
+      );
+
 });
