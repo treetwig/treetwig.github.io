@@ -8,7 +8,6 @@
       var currentProfit = 0;
       var profit = 0;
       var added = 0;
-      var firstTime = true;
       var btcvalue = 0;
 
       $(document).ready(function() {
@@ -47,8 +46,6 @@
                 success: function(localJSON){
 
                 var localProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(8);
-                console.log(localProfit);
-                console.log(btcvalue);
                 var usdProfit = (localProfit*parseFloat(btcvalue)).toFixed(2);
 
                 $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
@@ -59,9 +56,8 @@
                 <td data-th='Profit($)'>" + "$" + usdProfit + "</td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
                 </tr> ");
-                console.log("loaded altcoin table");
+                console.log("loaded altcoin entry");
                 added++;
-                firstTime = false;
               }
               });
 
@@ -78,12 +74,12 @@
                 $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
                 <td data-th='Name'>" + obj.coinName + "</td> \
                 <td data-th='Owned'>" + obj.coinsBought + "</td> \
-                <td data-th='CostPer'>" + "$" + obj.costPerCoin + "</td> \
-                <td data-th='Profit'>" + "$" + localProfit + "</td> \
-                <td data-th='Profit($)'>" + "n/a" + "</td \
+                <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
+                <td data-th='Profit'>" + "n/a" + "</td> \
+                <td data-th='Profit($)'>" + "$" + localProfit  + "</td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
                 </tr> ");
-                console.log("loaded bitcoin table");
+                console.log("loaded bitcoin entry");
                 added++;
               }
               });
