@@ -7,16 +7,22 @@
       var currentValue = 0;
       var currentProfit = 0;
       var profit = 0;
+      var added = 0;
+      var firstTime = true;
 
       $(document).ready(function() {
 
         $(".hidden").hide();
         $("#startMessage").hide();
-        var added = 0;
+
 
         function add(a, b) {
           return a + b;
         }
+
+        function updateLocalStorage(keyNumL, idL, costPerCoinL, coinsBoughtL, profitL, coinNameL){
+            localStorage.setItem(keyNumL, "{\"id\":\""+idL+"\", \"costPerCoin\":\""+costPerCoinL+"\", \"coinsBought\":\""+coinsBoughtL+"\", \"profit\":\""+profit+"\", \"coinName\":\""+coinNameL+"\"}");
+          }
 
         function addElement(importedJSONData){
           console.log("loaded: " + importedJSONData);
@@ -24,7 +30,11 @@
             if(obj.coinName  != 'BTC'){
               //load altcoin~bitcoin entries
 
-              $.getJSON("https://poloniex.com/public?command=returnOrderBook&currencyPair=BTC_" + obj.coinName + "&depth=1",function(localJSON){
+              $.ajax({
+                url: "https://poloniex.com/public?command=returnOrderBook&currencyPair=BTC_" + obj.coinName + "&depth=1",
+                dataType: 'json',
+                async: false,
+                success: function(localJSON){
 
                 var localProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(8);
 
@@ -35,13 +45,19 @@
                 <td data-th='Profit'>" + "Ƀ" + localProfit + "</td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
                 </tr> ");
-
+                console.log("loaded altcoin table");
                 added++;
+                firstTime = false;
+              }
               });
 
             }else{
               //load bitcoin~usd entries
-                $.getJSON("https://poloniex.com/public?command=returnOrderBook&currencyPair=USDT_BTC&depth=1",function(localJSON){
+                $.ajax({
+                  url: "https://poloniex.com/public?command=returnOrderBook&currencyPair=USDT_BTC&depth=1",
+                  dataType: 'json',
+                  async: false,
+                  success: function(localJSON){
 
                 var localProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(2);
 
@@ -52,8 +68,9 @@
                 <td data-th='Profit'>" + "$" + localProfit + "</td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
                 </tr> ");
-
+                console.log("loaded bitcoin table");
                 added++;
+              }
               });
             }
         }
