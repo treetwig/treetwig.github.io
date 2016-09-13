@@ -264,7 +264,8 @@ a.btn.btn-red {
 
     background-color: #34495E;
     border:3px solid #253342;
-    border-radius: 5px
+    border-radius: 5px;
+    color: white;
 }
 
 #donationIMGContainer{

@@ -1,5 +1,7 @@
       //global variables
       var jsonData = "";
+      var usdProfitArray = [];
+      var btcProfitArray = [];
 
       var coinsBoughtFloat = 0;
       var costPerCoinFloat = 0;
@@ -45,17 +47,31 @@
                 async: false,
                 success: function(localJSON){
 
-                var localProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(8);
+                var localProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(6);
                 var usdProfit = (localProfit*parseFloat(btcvalue)).toFixed(2);
+                usdProfitArray[added] = parseFloat(usdProfit);
+                btcProfitArray[added] = parseFloat(localProfit);
 
                 $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
                 <td data-th='Name'>" + obj.coinName + "</td> \
                 <td data-th='Owned'>" + obj.coinsBought + "</td> \
                 <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
-                <td data-th='Profit'>" + "Ƀ" + localProfit + "</td> \
-                <td data-th='Profit($)'>" + "$" + usdProfit + "</td> \
+                <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
+                <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
                 </tr> ");
+
+                if(localProfit < 0){
+                  $('#btcProfit_' + added).css('color', '#F20000')
+                }else{
+                  $('#btcProfit_' + added).css('color', '#00C200')
+                }
+                if(usdProfit < 0){
+                  $('#usdProfit_' + added).css('color', '#F20000')
+                }else{
+                  $('#usdProfit_' + added).css('color', '#00C200')
+                }
+
                 console.log("loaded altcoin entry");
                 added++;
               }
@@ -69,16 +85,31 @@
                   async: false,
                   success: function(localJSON){
 
-                var localProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(2);
+                var usdProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(2);
+                var localProfit = (usdProfit/parseFloat(btcvalue)).toFixed(6);
+                usdProfitArray[added] =parseFloat(usdProfit);
+                btcProfitArray[added] = parseFloat(localProfit);
 
                 $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
                 <td data-th='Name'>" + obj.coinName + "</td> \
                 <td data-th='Owned'>" + obj.coinsBought + "</td> \
-                <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
-                <td data-th='Profit'>" + "n/a" + "</td> \
-                <td data-th='Profit($)'>" + "$" + localProfit  + "</td> \
+                <td data-th='CostPer'>" + "$" + obj.costPerCoin + "</td> \
+                <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
+                <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
                 </tr> ");
+
+                if(localProfit < 0){
+                  $('#btcProfit_' + added).css('color', '#F20000')
+                }else{
+                  $('#btcProfit_' + added).css('color', '#00C200')
+                }
+                if(usdProfit < 0){
+                  $('#usdProfit_' + added).css('color', '#F20000')
+                }else{
+                  $('#usdProfit_' + added).css('color', '#00C200')
+                }
+
                 console.log("loaded bitcoin entry");
                 added++;
               }
@@ -94,6 +125,29 @@
           addElement(localStorage[i]);
         }
       }
+ 
+ // Handle profit box styling and numbers
+      var totalUSDProfit = parseFloat((usdProfitArray.reduce(add, 0)).toFixed(2));
+      var totalBTCProfit = parseFloat((btcProfitArray.reduce(add, 0)).toFixed(6));
+      console.log("total usd profit and btc profit: ", totalUSDProfit, ",", totalBTCProfit);
+      $('#usdProfitLabel').text("$" + totalUSDProfit);
+      $('#btcProfitLabel').text("Ƀ" + totalBTCProfit);
+
+      if(totalUSDProfit < 0){
+        $('#usdProfitLabel').css('color', '#F20000');
+      }
+      else{
+        $('#usdProfitLabel').css('color', '#00C200');
+      }
+
+      if(totalBTCProfit < 0){
+        $('#btcProfitLabel').css('color', '#F20000');
+      }
+      else{
+        $('#btcProfitLabel').css('color', '#00C200');
+      }
+
+  // end profit box code
 
         $("#helpicon").click(function() {
           var win = window.open('https://treetwig.github.io/help.html', '_blank');
@@ -102,7 +156,7 @@
             win.focus();
           } else {
     //Browser has blocked it
-            alert('Please allow popups for this website');
+            alert('Please allow popups for this website!');
           }
         });
 
@@ -156,7 +210,7 @@
               if(coinID == 'BTC'){
                 profit = currentProfit.toFixed(2);
               }else{
-                profit = currentProfit.toFixed(8);
+                profit = currentProfit.toFixed(6);
               }
               var coinName = coinID;
 
