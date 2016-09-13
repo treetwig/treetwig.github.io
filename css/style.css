@@ -252,8 +252,8 @@ a.btn.btn-red {
     position: fixed;
 
     /* set position */
-    top: 1px;
-    right: 1px;
+    bottom: 1px;
+    left: 1px;
 
     /* must have dimension */
     width: 335px;
