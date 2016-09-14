@@ -237,7 +237,7 @@ a.btn.btn-red {
 
     /* must have dimension */
     width: 335px;
-    height: 250px;
+    height: 400px;
     padding-left: 19px;
     padding-right: 19px;
     padding-bottom: 19px;
@@ -246,26 +246,6 @@ a.btn.btn-red {
     background-color: #34495E;
     border:3px solid #253342;
     border-radius: 5px
-}
-
-#profitBox{
-    position: fixed;
-
-    /* set position */
-    bottom: 1px;
-    left: 1px;
-
-    /* must have dimension */
-    width: 335px;
-    height: auto;
-    padding-left: 19px;
-    padding-right: 19px;
-    margin: 10px;
-
-    background-color: #34495E;
-    border:3px solid #253342;
-    border-radius: 5px;
-    color: white;
 }
 
 #donationIMGContainer{
@@ -287,4 +267,20 @@ a.btn.btn-red {
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+#buttonsContainer{
+	position: absolute;
+	top: 40px;
+	right: 35px;
+}
+
+#settingsButtonDIV{
+	position: absolute;
+	bottom: 1px;
+}
+
+#infoButtonDIV{
+	position: absolute;
+	top: 5px;
 }

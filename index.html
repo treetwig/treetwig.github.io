@@ -35,23 +35,27 @@
       <th>Price/Coin Paid</th>
       <th>Profit (Ƀ)</th>
       <th>Profit ($)</th>
-      <th><i style="color:white;" id="helpicon" class="material-icons">help_outline</i></th>
+      <th><i style="color:white;" id="addInvestment" class="material-icons">add_circle</i></th>
     </tr>
     <div class="investments">
     </div>
   </table>
-  <a class="btn btn-blue" href="#" id="addInvestment">Add Investment</a><br/><br/>
-  <a class="btn btn-red" href="http://treetwig.github.io/push">Settings</a>
-
-  <div id="profitBox">
-  <h3>Profit/Loss</h3>
-  <p>Total USD P/L: <span id="usdProfitLabel">n/a</span></p>
-  <p>Total BTC P/L: <span id="btcProfitLabel">n/a</span></p>
-  </div>
 
   <div id="donationbox">
-  <p style="color:white;"><i style="color:#F03E53;" class="material-icons">favorite</i> bitcoin donations appreciated: 1MKtknUDY6P5cinAqUb9f5XNqxYiv3ptA9</p>
-  <div id="donationIMGContainer"><img id="donationImage" width="170px" height="170px" src="img/qr.png" /></div>
+    <div id="buttonsContainer">
+      <div id="infoButtonDIV">
+        <i style="color:white;" id="helpicon" class="material-icons">info</i>
+      </div>
+      <div id="settingsButtonDIV">
+        <i style="color:white;" id="settingsButton" class="material-icons">settings</i>
+      </div>
+    </div>
+    <h3 style="color:white;">Profit/Loss:</h3>
+    <p style="color:white;">Total USD P/L: <span id="usdProfitLabel">n/a</span></p>
+    <p style="color:white;">Total BTC P/L: <span id="btcProfitLabel">n/a</span></p>
+      <hr noshade>
+    <p style="color:white;"><i style="color:#F03E53;" class="material-icons">favorite</i> bitcoin donations appreciated: 1MKtknUDY6P5cinAqUb9f5XNqxYiv3ptA9</p>
+    <div id="donationIMGContainer"><img id="donationImage" width="170px" height="170px" src="img/qr.png" /></div>
   </div>
 
   <div class="hidden holder" id="investmentScreen">

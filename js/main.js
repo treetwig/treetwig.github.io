@@ -149,6 +149,17 @@
 
   // end profit box code
 
+        $("#settingsButton").click(function() {
+          var win = window.open('https://treetwig.github.io/push', '_blank');
+          if (win) {
+    //Browser has allowed it to be opened
+            win.focus();
+          } else {
+    //Browser has blocked it
+            alert('Please allow popups for this website!');
+          }
+        });
+
         $("#helpicon").click(function() {
           var win = window.open('https://treetwig.github.io/help.html', '_blank');
           if (win) {
