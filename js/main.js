@@ -126,7 +126,7 @@
         }
       }
  
- // Handle profit box styling and numbers
+ // Handle infobox styling and numbers
       var totalUSDProfit = parseFloat((usdProfitArray.reduce(add, 0)).toFixed(2));
       var totalBTCProfit = parseFloat((btcProfitArray.reduce(add, 0)).toFixed(6));
       console.log("total usd profit and btc profit: ", totalUSDProfit, ",", totalBTCProfit);
@@ -147,7 +147,10 @@
         $('#btcProfitLabel').css('color', '#00C200');
       }
 
-  // end profit box code
+      $('#btcprice').text("$" + parseFloat(btcvalue).toFixed(2));
+      $('#btcprice').css('color', 'orange');
+
+  // end infobox code
 
         $("#settingsButton").click(function() {
           var win = window.open('https://treetwig.github.io/push', '_blank');

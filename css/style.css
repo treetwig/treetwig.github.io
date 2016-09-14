@@ -237,7 +237,7 @@ a.btn.btn-red {
 
     /* must have dimension */
     width: 335px;
-    height: 400px;
+    height: 440px;
     padding-left: 19px;
     padding-right: 19px;
     padding-bottom: 19px;
@@ -271,7 +271,7 @@ a.btn.btn-red {
 
 #buttonsContainer{
 	position: absolute;
-	top: 40px;
+	bottom: 35px;
 	right: 35px;
 }
 
@@ -282,5 +282,5 @@ a.btn.btn-red {
 
 #infoButtonDIV{
 	position: absolute;
-	top: 5px;
+	top: 1px;
 }
