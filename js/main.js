@@ -36,6 +36,21 @@
             }
         });
 
+        // Thanks to user187291 on StackOverflow
+        function getPrecision(scinum) {
+          var arr = new Array();
+          // Get the exponent after 'e', make it absolute.  
+          arr = scinum.split('e');
+          var exponent = Math.abs(arr[1]);
+
+          // Add to it the number of digits between the '.' and the 'e'
+          // to give our required precision.
+          var precision = new Number(exponent);
+          arr = arr[0].split('.');
+          precision += arr[1].length;
+
+          return precision;
+        }
 
         function add(a, b) {
           return a + b;
@@ -57,11 +72,30 @@
                 async: false,
                 success: function(localJSON){
 
-                var localProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(6);
+                console.log(obj.costPerCoin);
+
+                var costPerCoinlocal = "";
+                if(obj.costPerCoin.includes("e")){
+                  if (obj.costPerCoin.match(/^[-+]?[1-9]\.[0-9]+e[-]?[1-9][0-9]*$/)) {
+                    costPerCoinlocal = (+obj.costPerCoin).toFixed(getPrecision(obj.costPerCoin));
+                  }
+                }
+
+                var localProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(8);
                 var usdProfit = (localProfit*parseFloat(btcvalue)).toFixed(2);
                 usdProfitArray[added] = parseFloat(usdProfit);
                 btcProfitArray[added] = parseFloat(localProfit);
 
+                if(obj.costPerCoin.includes("e")){
+                $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
+                <td data-th='Name'>" + obj.coinName + "</td> \
+                <td data-th='Owned'>" + obj.coinsBought + "</td> \
+                <td data-th='CostPer'>" + "Ƀ" + costPerCoinlocal + "</td> \
+                <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
+                <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
+                <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
+                </tr> ");
+              }else{
                 $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
                 <td data-th='Name'>" + obj.coinName + "</td> \
                 <td data-th='Owned'>" + obj.coinsBought + "</td> \
@@ -70,6 +104,8 @@
                 <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
                 </tr> ");
+              }
+
 
                 if(localProfit < 0){
                   $('#btcProfit_' + added).css('color', '#F20000')
@@ -96,7 +132,7 @@
                   success: function(localJSON){
 
                 var usdProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(2);
-                var localProfit = (usdProfit/parseFloat(btcvalue)).toFixed(6);
+                var localProfit = (usdProfit/parseFloat(btcvalue)).toFixed(8);
                 usdProfitArray[added] =parseFloat(usdProfit);
                 btcProfitArray[added] = parseFloat(localProfit);
 
@@ -138,7 +174,7 @@
  
  // Handle infobox styling and numbers
       var totalUSDProfit = parseFloat((usdProfitArray.reduce(add, 0)).toFixed(2));
-      var totalBTCProfit = parseFloat((btcProfitArray.reduce(add, 0)).toFixed(6));
+      var totalBTCProfit = parseFloat((btcProfitArray.reduce(add, 0)).toFixed(8));
       console.log("total usd profit and btc profit: ", totalUSDProfit, ",", totalBTCProfit);
       $('#usdProfitLabel').text("$" + totalUSDProfit);
       $('#btcProfitLabel').text("Ƀ" + totalBTCProfit);
@@ -160,7 +196,7 @@
       $('#btcprice').text("$" + parseFloat(btcvalue).toFixed(2));
       $('#btcprice').css('color', 'orange');
 
-      $('#ethbtcprice').text("Ƀ" + parseFloat(ethvalue).toFixed(6));
+      $('#ethbtcprice').text("Ƀ" + parseFloat(ethvalue).toFixed(8));
       $('#ethusdprice').text("$" + (parseFloat(ethvalue)*parseFloat(btcvalue)).toFixed(2));
       $('#ethbtcprice').css('color', '#729BF2');
       $('#ethusdprice').css('color', '#729BF2');
@@ -241,7 +277,7 @@
               if(coinID == 'BTC'){
                 profit = currentProfit.toFixed(2);
               }else{
-                profit = currentProfit.toFixed(6);
+                profit = currentProfit.toFixed(8);
               }
               var coinName = coinID;
 
