@@ -11,6 +11,7 @@
       var profit = 0;
       var added = 0;
       var btcvalue = 0;
+      var ethvalue = 0;
 
       $(document).ready(function() {
 
@@ -21,8 +22,17 @@
           url: "https://poloniex.com/public?command=returnOrderBook&currencyPair=USDT_BTC&depth=1",
           dataType: 'json',
           async: false,
-          success: function(usdjson){
-              btcvalue = usdjson.asks[0][0];
+          success: function(pricejson){
+              btcvalue = pricejson.asks[0][0];
+            }
+        });
+
+        $.ajax({
+          url: "https://poloniex.com/public?command=returnOrderBook&currencyPair=BTC_ETH&depth=1",
+          dataType: 'json',
+          async: false,
+          success: function(pricejson){
+              ethvalue = pricejson.asks[0][0];
             }
         });
 
@@ -149,6 +159,13 @@
 
       $('#btcprice').text("$" + parseFloat(btcvalue).toFixed(2));
       $('#btcprice').css('color', 'orange');
+
+      $('#ethbtcprice').text("Ƀ" + parseFloat(ethvalue).toFixed(6));
+      $('#ethusdprice').text("$" + (parseFloat(ethvalue)*parseFloat(btcvalue)).toFixed(2));
+      $('#ethbtcprice').css('color', '#729BF2');
+      $('#ethusdprice').css('color', '#729BF2');
+
+
 
   // end infobox code
 
