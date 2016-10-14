@@ -1,7 +1,12 @@
       //global variables
       var jsonData = "";
+      var editProfit = "";
       var usdProfitArray = [];
       var btcProfitArray = [];
+      var currencyArray = [];
+
+      var intRegex = /^\d+$/;
+      var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
 
       var coinsBoughtFloat = 0;
       var costPerCoinFloat = 0;
@@ -12,6 +17,7 @@
       var added = 0;
       var btcvalue = 0;
       var ethvalue = 0;
+      var clickEditID = 0;
 
       $(document).ready(function() {
 
@@ -33,6 +39,25 @@
           async: false,
           success: function(pricejson){
               ethvalue = pricejson.asks[0][0];
+            }
+        });
+
+        Object.size = function(obj){
+          var size = 0, key;
+          for (key in obj){
+            if (obj.hasOwnProperty(key)) size++;
+          }
+          return size;
+        };
+
+        $.ajax({
+          url: "https://poloniex.com/public?command=returnCurrencies",
+          dataType: 'json',
+          async: false,
+          success: function(currencyjson){
+              for (var i = Object.size(currencyjson) - 1; i >= 0; i--) {
+                currencyArray[i] = Object.keys(currencyjson)[i];
+              }
             }
         });
 
@@ -94,6 +119,7 @@
                 <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
                 <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
+                <td data-th='Edit'><i class='material-icons edit' id='editButton_"+added+"'>edit</i></td> \
                 </tr> ");
               }else{
                 $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
@@ -103,6 +129,7 @@
                 <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
                 <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
+                <td data-th='Edit'><i class='material-icons edit' id='editButton_"+added+"'>edit</i></td> \
                 </tr> ");
               }
 
@@ -143,6 +170,7 @@
                 <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
                 <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
+                <td data-th='Edit'><i class='material-icons edit' id='editButton_"+added+"'>edit</i></td> \
                 </tr> ");
 
                 if(localProfit < 0){
@@ -239,10 +267,17 @@
           $('#overlay-back').fadeOut(500);
         });
 
+        $("#closeEditScreen").click(function(){
+          $('.hidden').hide();
+          $('#overlay-back').fadeOut(500);
+        });
+
         $("#addInvestment").click(function(){
-          $(".hidden").show();
+          $("#investmentScreen").show();
           $('#overlay-back').fadeIn(500);
         });
+
+        // DELETE FUNCTION
 
         $(document).on('click', "i.material-icons.delete", function() {
           clickedLinkID = $(this).attr('id');
@@ -260,10 +295,43 @@
           location.reload();
         });
 
+        // END DELETE FUNCTION
+
+        $(document).on('click', "i.material-icons.edit", function() {
+          clickedLinkID = $(this).attr('id');
+          var res = clickedLinkID.split("_");
+          clickedEditID = res[1];
+          var storedData = localStorage.getItem(res[1]);
+          var JSONobj = jQuery.parseJSON(storedData);
+          console.log(JSONobj);
+          var coinID = JSONobj.id;
+          var cBought = JSONobj.coinsBought;
+          var CPC = JSONobj.costPerCoin;
+
+          $('#editIDTextbox').val(coinID);
+          $('#editOwnedTextbox').val(cBought);
+          $('#editCostPerCoinTextbox').val(CPC);
+
+          $("#editScreen").show();
+          $('#overlay-back').fadeIn(500);
+        });
+
+        $('#saveEditedInvestment').click(function() {
+          var newID = $('#editIDTextbox').val().toUpperCase();
+          var newCBought = $('#editOwnedTextbox').val();
+          var newCPC = $('#editCostPerCoinTextbox').val();
+          if((intRegex.test(newCBought) || floatRegex.test(newCBought)) && (intRegex.test(newCPC) || floatRegex.test(newCPC)) && (currencyArray.indexOf(newID) > -1)){
+            console.log(newID, newCBought, newCPC);
+            localStorage[clickedEditID] = "{\"id\":\""+newID+"\", \"costPerCoin\":\""+newCPC+"\", \"coinsBought\":\""+newCBought+"\", \"coinName\":\""+newID+"\"}";
+            location.reload();
+          }else{
+            alert("invalid entry");
+            console.log("invalid entry");
+          }
+        });
+
         $("#saveInvestment").click(function(){
           //add element to investments div on button click
-          var intRegex = /^\d+$/;
-          var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
 
           var coinID = $('#coinNameTextbox').val().toUpperCase();
           var coinsBought = $('#ownedTextbox').val();
@@ -290,7 +358,7 @@
           }
         }
 
-        if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin)) && coinID){
+        if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin)) && coinID && (currencyArray.indexOf(coinID) > -1)){
 
           if(coinID != 'BTC'){
 

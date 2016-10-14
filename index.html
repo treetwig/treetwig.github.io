@@ -35,6 +35,7 @@
       <th>Price/Coin Paid</th>
       <th>Profit (Ƀ)</th>
       <th>Profit ($)</th>
+      <th>Delete</th>
       <th><i style="color:white;" id="addInvestment" class="material-icons">add_circle</i></th>
     </tr>
     <div class="investments">
@@ -77,5 +78,22 @@
       </div>
     </div>
   </div>
+
+  <div class="hidden holder" id="editScreen">
+    <div id="popup" class="popup">
+      <div class="content">
+        <form>
+          <input type="text" class="niceTextbox" id="editIDTextbox" placeholder="coin ID" />
+          <input type="text" class="niceTextbox" id="editOwnedTextbox" placeholder="amount purchased" />
+          <input type="text" class="niceTextbox" id="editCostPerCoinTextbox" placeholder="cost per coin" />
+        </form>
+        <div id="top-right"><i id="closeEditScreen" class="material-icons">close</i></div>
+        <div id="bottom-right">
+          <a href="#" class="btn btn-blue" id="saveEditedInvestment">Save</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
