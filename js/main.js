@@ -61,22 +61,6 @@
             }
         });
 
-        // Thanks to user187291 on StackOverflow
-        function getPrecision(scinum) {
-          var arr = new Array();
-          // Get the exponent after 'e', make it absolute.  
-          arr = scinum.split('e');
-          var exponent = Math.abs(arr[1]);
-
-          // Add to it the number of digits between the '.' and the 'e'
-          // to give our required precision.
-          var precision = new Number(exponent);
-          arr = arr[0].split('.');
-          precision += arr[1].length;
-
-          return precision;
-        }
-
         function add(a, b) {
           return a + b;
         }
@@ -105,19 +89,10 @@
                 usdProfitArray[added] = parseFloat(usdProfit);
                 btcProfitArray[added] = parseFloat(localProfit);
 
-                var costPerCoinlocal = "";
-                if(obj.costPerCoin.includes("e")){
-                  if (obj.costPerCoin.match(/^[-+]?[1-9]\.[0-9]+e[-]?[1-9][0-9]*$/)) {
-                    costPerCoinlocal = (+obj.costPerCoin).toFixed(getPrecision(obj.costPerCoin));
-                  }
-                }else{
-                	costPerCoinlocal = obj.costPerCoin;
-                }
-
                 $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
                 <td data-th='Name'>" + obj.coinName + "</td> \
                 <td data-th='Owned'>" + obj.coinsBought + "</td> \
-                <td data-th='CostPer'>" + "Ƀ" + costPerCoinlocal + "</td> \
+                <td data-th='CostPer'>" + "Ƀ" + parseFloat(obj.costPerCoin).toFixed(8) + "</td> \
                 <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
                 <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
@@ -150,15 +125,6 @@
                 async: false,
                 success: function(localJSON){
 
-                console.log(obj.costPerCoin);
-
-                var costPerCoinlocal = "";
-                if(obj.costPerCoin.includes("e")){
-                  if (obj.costPerCoin.match(/^[-+]?[1-9]\.[0-9]+e[-]?[1-9][0-9]*$/)) {
-                    costPerCoinlocal = (+obj.costPerCoin).toFixed(getPrecision(obj.costPerCoin));
-                  }
-                }
-
                 var localProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(8);
                 var usdProfit = (localProfit*parseFloat(btcvalue)).toFixed(2);
                 usdProfitArray[added] = parseFloat(usdProfit);
@@ -168,7 +134,7 @@
                 $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
                 <td data-th='Name'>" + obj.coinName + "</td> \
                 <td data-th='Owned'>" + obj.coinsBought + "</td> \
-                <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
+                <td data-th='CostPer'>" + "Ƀ" + parseFloat(obj.costPerCoin).toFixed(8) + "</td> \
                 <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
                 <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
@@ -220,7 +186,7 @@
                 $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
                 <td data-th='Name'>" + obj.coinName + "</td> \
                 <td data-th='Owned'>" + obj.coinsBought + "</td> \
-                <td data-th='CostPer'>" + "$" + obj.costPerCoin + "</td> \
+                <td data-th='CostPer'>" + "$" + parseFloat(obj.costPerCoin).toFixed(8) + "</td> \
                 <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
                 <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
