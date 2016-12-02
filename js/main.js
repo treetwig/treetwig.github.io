@@ -157,6 +157,8 @@
                   if (obj.costPerCoin.match(/^[-+]?[1-9]\.[0-9]+e[-]?[1-9][0-9]*$/)) {
                     costPerCoinlocal = (+obj.costPerCoin).toFixed(getPrecision(obj.costPerCoin));
                   }
+                }else{
+                	costPerCoinlocal = obj.costPerCoin;
                 }
                 var localProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(8);
                 var usdProfit = (localProfit*parseFloat(btcvalue)).toFixed(2);
