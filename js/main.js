@@ -130,7 +130,6 @@
                 usdProfitArray[added] = parseFloat(usdProfit);
                 btcProfitArray[added] = parseFloat(localProfit);
 
-                if(obj.costPerCoin.includes("e")){
                 $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
                 <td data-th='Name'>" + obj.coinName + "</td> \
                 <td data-th='Owned'>" + obj.coinsBought + "</td> \
@@ -140,17 +139,6 @@
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
                 <td data-th='Edit'><i class='material-icons edit' id='editButton_"+added+"'>edit</i></td> \
                 </tr> ");
-              }else{
-                $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
-                <td data-th='Name'>" + obj.coinName + "</td> \
-                <td data-th='Owned'>" + obj.coinsBought + "</td> \
-                <td data-th='CostPer'>" + "Ƀ" + obj.costPerCoin + "</td> \
-                <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
-                <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
-                <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
-                <td data-th='Edit'><i class='material-icons edit' id='editButton_"+added+"'>edit</i></td> \
-                </tr> ");
-              }
 
 
                 if(localProfit < 0){
