@@ -88,7 +88,60 @@
         function addElement(importedJSONData){
           console.log("loaded: " + importedJSONData);
           var obj = jQuery.parseJSON(importedJSONData);
-            if(obj.coinName  != 'BTC'){
+          	if(obj.coinName.startsWith("*")){
+          		console.log("started custom id import");
+          		var CMCID = (obj.id.split("*"))[1];
+
+          		$.ajax({
+                url: "https://coinmarketcap-nexuist.rhcloud.com/api/" + CMCID,
+                dataType: 'json',
+                async: false,
+                success: function(localJSON){
+                	var coinPrice = Number(localJSON.price.btc);
+                	console.log("coinprice", coinPrice);
+
+                var localProfit = (parseFloat(obj.coinsBought) * coinPrice - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(8);
+                var usdProfit = (localProfit*parseFloat(btcvalue)).toFixed(2);
+                usdProfitArray[added] = parseFloat(usdProfit);
+                btcProfitArray[added] = parseFloat(localProfit);
+
+                var costPerCoinlocal = "";
+                if(obj.costPerCoin.includes("e")){
+                  if (obj.costPerCoin.match(/^[-+]?[1-9]\.[0-9]+e[-]?[1-9][0-9]*$/)) {
+                    costPerCoinlocal = (+obj.costPerCoin).toFixed(getPrecision(obj.costPerCoin));
+                  }
+                }else{
+                	costPerCoinlocal = obj.costPerCoin;
+                }
+
+                $("#investmentTable tr:last").after(" <tr id=entry_" + added + "> \
+                <td data-th='Name'>" + obj.coinName + "</td> \
+                <td data-th='Owned'>" + obj.coinsBought + "</td> \
+                <td data-th='CostPer'>" + "Ƀ" + costPerCoinlocal + "</td> \
+                <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
+                <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
+                <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
+                <td data-th='Edit'><i class='material-icons edit' id='editButton_"+added+"'>edit</i></td> \
+                </tr> ");
+
+                if(localProfit < 0){
+                  $('#btcProfit_' + added).css('color', '#F20000')
+                }else{
+                  $('#btcProfit_' + added).css('color', '#00C200')
+                }
+                if(usdProfit < 0){
+                  $('#usdProfit_' + added).css('color', '#F20000')
+                }else{
+                  $('#usdProfit_' + added).css('color', '#00C200')
+                }
+
+                console.log("loaded cmcid entry");
+                added++;
+              }
+              });
+
+          	}
+            if(obj.coinName  != 'BTC' && !obj.coinName.startsWith("*")){
               //load altcoin~bitcoin entries
 
               $.ajax({
@@ -105,7 +158,6 @@
                     costPerCoinlocal = (+obj.costPerCoin).toFixed(getPrecision(obj.costPerCoin));
                   }
                 }
-
                 var localProfit = ((parseFloat(obj.coinsBought) * parseFloat(localJSON.asks[0][0])) - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(8);
                 var usdProfit = (localProfit*parseFloat(btcvalue)).toFixed(2);
                 usdProfitArray[added] = parseFloat(usdProfit);
@@ -150,7 +202,8 @@
               }
               });
 
-            }else{
+            }
+            if(obj.coinName == "BTC"){
               //load bitcoin~usd entries
                 $.ajax({
                   url: "https://poloniex.com/public?command=returnOrderBook&currencyPair=USDT_BTC&depth=1",
@@ -320,6 +373,18 @@
           var newID = $('#editIDTextbox').val().toUpperCase();
           var newCBought = $('#editOwnedTextbox').val();
           var newCPC = $('#editCostPerCoinTextbox').val();
+          if((intRegex.test(newCBought) || floatRegex.test(newCBought)) && (intRegex.test(newCPC) || floatRegex.test(newCPC)) && (newID.startsWith("*"))){
+          	console.log(newID, newCBought, newCPC);
+          	var CMCID = (newID.split("*"))[1];
+          	$.getJSON("https://coinmarketcap-nexuist.rhcloud.com/api/" + CMCID, function(json){
+          		if(json.error == "Requested coin does not exist or has not been updated yet."){
+          			alert("invalid coin!");
+          		}else{
+          		    localStorage[clickedEditID] = "{\"id\":\""+newID+"\", \"costPerCoin\":\""+newCPC+"\", \"coinsBought\":\""+newCBought+"\", \"coinName\":\""+newID+"\"}";
+            		location.reload();
+          		}
+          	});
+          }else{
           if((intRegex.test(newCBought) || floatRegex.test(newCBought)) && (intRegex.test(newCPC) || floatRegex.test(newCPC)) && (currencyArray.indexOf(newID) > -1)){
             console.log(newID, newCBought, newCPC);
             localStorage[clickedEditID] = "{\"id\":\""+newID+"\", \"costPerCoin\":\""+newCPC+"\", \"coinsBought\":\""+newCBought+"\", \"coinName\":\""+newID+"\"}";
@@ -328,6 +393,7 @@
             alert("invalid entry");
             console.log("invalid entry");
           }
+      }
         });
 
         $("#saveInvestment").click(function(){
@@ -357,6 +423,29 @@
             alert("invalid id");
           }
         }
+
+		if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin)) && coinID.startsWith("*")){
+          console.log("custom CMCID entered");
+          var CMCID = (coinID.split("*"))[1];
+          console.log("CMCID: ", CMCID);
+
+          $.getJSON("https://coinmarketcap-nexuist.rhcloud.com/api/" + CMCID, function(json){
+          	if(json.error == "Requested coin does not exist or has not been updated yet."){
+          		alert("invalid coin!");
+          	}else{
+          	console.log(json);
+          	jsonData = json;
+          	coinsBoughtFloat = parseFloat(coinsBought);
+            costPerCoinFloat = parseFloat(costPerCoin);
+            moneySpent = coinsBoughtFloat*costPerCoinFloat;
+            currentValue = coinsBoughtFloat*Number(jsonData.price.btc);
+            currentProfit = currentValue-moneySpent;
+            profit = 0;
+          	insertLocalStorage(jsonData);
+          }
+          
+          });
+          }else{
 
         if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin)) && coinID && (currencyArray.indexOf(coinID) > -1)){
 
@@ -389,5 +478,6 @@
         }else{
           alert('Invalid entry!');
         }
+    }
         });
       });

@@ -4,7 +4,7 @@ $(function() {
            {    
            		var data = "";
            		for(i = 0; i < localStorage.length; i++){
-					data = data + localStorage.getItem(i) + "*";
+					data = data + localStorage.getItem(i) + "#";
            		}
            		window.location = "data:text/plain," + data;
            }
@@ -34,7 +34,7 @@ $(function() {
            {    
            		console.log("attempting to restore from data: " + inputData);
            		if(inputData != ""){
-           		var dataArray = inputData.split("*");
+           		var dataArray = inputData.split("#");
            		localStorage.clear();
            		for(i = 0; i < (dataArray.length)-1; i++){
            			localStorage.setItem(i, dataArray[i]);
