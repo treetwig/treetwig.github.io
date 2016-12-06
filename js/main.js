@@ -93,8 +93,10 @@
                 <td data-th='Name'>" + obj.coinName + "</td> \
                 <td data-th='Owned'>" + obj.coinsBought + "</td> \
                 <td data-th='CostPer'>" + "Ƀ" + parseFloat(obj.costPerCoin).toFixed(8) + "</td> \
-                <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
-                <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
+                <td data-th='Profit (Ƀ)'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
+                <td data-th='Profit ($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
+                <td data-th='Price (Ƀ)'>" + "Ƀ" + coinPrice.toFixed(8) + "</td> \
+                <td data-th='Price ($)'>" + "$" + (localJSON.price.usd).toFixed(2) + "</td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
                 <td data-th='Edit'><i class='material-icons edit' id='editButton_"+added+"'>edit</i></td> \
                 </tr> ");
@@ -134,8 +136,10 @@
                 <td data-th='Name'>" + obj.coinName + "</td> \
                 <td data-th='Owned'>" + obj.coinsBought + "</td> \
                 <td data-th='CostPer'>" + "Ƀ" + parseFloat(obj.costPerCoin).toFixed(8) + "</td> \
-                <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
-                <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
+                <td data-th='Profit (Ƀ)'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
+                <td data-th='Profit ($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
+                <td data-th='Price (Ƀ)'>" + "Ƀ" + (parseFloat(localJSON.asks[0][0])).toFixed(8) + "</td> \
+                <td data-th='Price ($)'>" + "$" + (parseFloat(localJSON.asks[0][0] * btcvalue)).toFixed(2) + "</td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
                 <td data-th='Edit'><i class='material-icons edit' id='editButton_"+added+"'>edit</i></td> \
                 </tr> ");
@@ -175,8 +179,10 @@
                 <td data-th='Name'>" + obj.coinName + "</td> \
                 <td data-th='Owned'>" + obj.coinsBought + "</td> \
                 <td data-th='CostPer'>" + "$" + parseFloat(obj.costPerCoin).toFixed(8) + "</td> \
-                <td data-th='Profit'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
-                <td data-th='Profit($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
+                <td data-th='Profit (Ƀ)'>" + "<span id='btcProfit_"+ added + "'>" + "<b>Ƀ</b>" + localProfit + "</span></td> \
+                <td data-th='Profit ($)'>" + "<span id='usdProfit_"+ added + "'>" + "<b>$</b>" + usdProfit + "</span></td> \
+                <td data-th='Price (Ƀ)'>" + "n/a" + "</td> \
+                <td data-th='Price ($)'>" + "$" + parseFloat(localJSON.asks[0][0]).toFixed(2) + "</td> \
                 <td data-th='ID'><i class='material-icons delete' style='color:#F03E3E;' id='deleteButton_"+added+"'>delete_forever</i></td> \
                 <td data-th='Edit'><i class='material-icons edit' id='editButton_"+added+"'>edit</i></td> \
                 </tr> ");
