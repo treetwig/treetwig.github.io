@@ -80,7 +80,9 @@ h1 {
   }
 }
 .rwd-table th, .rwd-table td:before {
-  color: #dd3;
+  color: #99E5FF;
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 a { text-decoration: none; margin: 0 0px; }
