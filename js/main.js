@@ -249,58 +249,37 @@
       }
  
  // Handle infobox styling and numbers
-      var totalUSDProfit = parseFloat((usdProfitArray.reduce(add, 0)).toFixed(2));
-      var totalBTCProfit = parseFloat((btcProfitArray.reduce(add, 0)).toFixed(8));
-      $('#usdProfitLabel').text("$" + totalUSDProfit);
-      $('#btcProfitLabel').text("Ƀ" + totalBTCProfit);
+     var totalUSDProfit = parseFloat((usdProfitArray.reduce(add, 0)).toFixed(2));
+     var totalBTCProfit = parseFloat((btcProfitArray.reduce(add, 0)).toFixed(8));
+     $('#usdProfitLabel').text("$" + totalUSDProfit);
+     $('#btcProfitLabel').text("Ƀ" + totalBTCProfit);
 
-      if(totalUSDProfit < 0){
-        $('#usdProfitLabel').css('color', '#F20000');
-      }
-      else{
-        $('#usdProfitLabel').css('color', '#00C200');
-      }
+     if(totalUSDProfit < 0){
+       $('#usdProfitLabel').css('color', '#F20000');
+     }
+     else{
+       $('#usdProfitLabel').css('color', '#00C200');
+     }
 
-      if(totalBTCProfit < 0){
-        $('#btcProfitLabel').css('color', '#F20000');
-      }
-      else{
-        $('#btcProfitLabel').css('color', '#00C200');
-      }
+     if(totalBTCProfit < 0){
+       $('#btcProfitLabel').css('color', '#F20000');
+     }
+     else{
+       $('#btcProfitLabel').css('color', '#00C200');
+     }
 
-      $('#btcprice').text("$" + parseFloat(btcvalue).toFixed(2));
-      $('#btcprice').css('color', 'orange');
+     $('#btcprice').text("$" + parseFloat(btcvalue).toFixed(2));
+     $('#btcprice').css('color', 'orange');
 
-      $('#ethbtcprice').text("Ƀ" + parseFloat(ethvalue).toFixed(8));
-      $('#ethusdprice').text("$" + (parseFloat(ethvalue)*parseFloat(btcvalue)).toFixed(2));
-      $('#ethbtcprice').css('color', '#729BF2');
-      $('#ethusdprice').css('color', '#729BF2');
-
-
-
+     $('#ethbtcprice').text("Ƀ" + parseFloat(ethvalue).toFixed(8));
+     $('#ethusdprice').text("$" + (parseFloat(ethvalue)*parseFloat(btcvalue)).toFixed(2));
+     $('#ethbtcprice').css('color', '#729BF2');
+     $('#ethusdprice').css('color', '#729BF2');
   // end infobox code
 
-        $("#settingsButton").click(function() {
-          var win = window.open('https://treetwig.github.io/push', '_blank');
-          if (win) {
-    //Browser has allowed it to be opened
-            win.focus();
-          } else {
-    //Browser has blocked it
-            alert('Please allow popups for this website!');
-          }
-        });
-
-        $("#helpicon").click(function() {
-          var win = window.open('https://treetwig.github.io/help.html', '_blank');
-          if (win) {
-    //Browser has allowed it to be opened
-            win.focus();
-          } else {
-    //Browser has blocked it
-            alert('Please allow popups for this website!');
-          }
-        });
+  // ticker code
+  	$('#ticker').text("BTC: $" + parseFloat(btcvalue).toFixed(2) + ", ETH: $" + (parseFloat(ethvalue)*parseFloat(btcvalue)).toFixed(2));
+  // end ticker code
 
         $(document).keyup(function(event) {
           if(event.which === 27) {

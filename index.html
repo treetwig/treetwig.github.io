@@ -7,6 +7,7 @@
     <script src="js/jquery-3.1.0.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/backup.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 
     <!-- mobile stuff -->
@@ -28,14 +29,12 @@
   </head>
 <body>
 <div id="menuBar">
-   <a href="#" id="toggleInfoBox" class="btn btn-blue">Toggle Info</a>
-   <!--<marquee behaviour="scroll" direction="left">text</marquee>-->
-        <i style="color:white;" id="helpicon" class="material-icons">info</i>
-        <i style="color:white;" id="settingsButton" class="material-icons">settings</i>
+<i style="color: #D62424" class="material-icons">favorite</i> BTC donations appreciated: 1ExxS1UkRvUu4SFGJww4DUafoapwvrJpyr
 </div>
 
 <div id="sideBar">
   <div id="donationbox">
+    <h3 style="color: white">Current Prices:</h1>
     <p style="color:white;">1 BTC ~ <span id="btcprice"></span></p>
     <p style="color:white;">1 ETH ~ <span id="ethbtcprice"></span> ~ <span id="ethusdprice"></span></p>
     <hr noshade>
@@ -43,7 +42,33 @@
     <p style="color:white;">Total USD P/L: <span id="usdProfitLabel">n/a</span></p>
     <p style="color:white;">Total BTC P/L: <span id="btcProfitLabel">n/a</span></p>
       <hr noshade>
-        <canvas id="myChart"></canvas>
+      <canvas id="myChart"></canvas>
+      <hr noshade>
+      <h3 style="color: white">Settings:</h1>
+      <ul style="list-style-type: circle; color: white">
+        <li>
+          <a href="#" id="backupButton"><span style="color: #60D624"><i class="material-icons">backup</i> backup</span></a>
+        </li>
+        <li>
+          <label for="file"><span style="color: white"><i class="material-icons">attach_file</i> attach file</span></label>
+        </li>
+        <li>
+          <a href="#" id="upload"><span style="color: #2477D6"><i class="material-icons">restore</i> restore</span></a><input type="file" id="file" name="file" class="inputfile" />
+        </li>
+        <li>
+          <a href="#" id="clearAll"><span style="color: #D62424"><i class="material-icons">delete_sweep</i> delete all</span></a>
+        </li>
+      </ul>
+      <hr noshade>
+      <h3 style="color: white">Help:</h1>
+      <ul style="color: white">
+      <li>
+        <p>Backing up: attach file first, and then press restore.</p>
+      </li>
+      <li>
+        <p>CoinMarketCap coin: start coin ID with asterisk. e.g. *icn or *gnt</p>
+      </li>
+      </ul>
   </div>
 </div>
 

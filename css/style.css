@@ -234,12 +234,43 @@ a.btn.btn-blue {
   position: fixed;
   left: 0;
   top: 0;
-  width: 100%;
+  width: 80vw;
   color: white;
   background: #34495E;
   padding: 5px;
   border-top: 3px solid #253342;
   border-bottom: 3px solid #253342;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: red;
+}
+
+.inputfile:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label {
+  cursor: pointer; /* "hand" cursor */
 }
 
 #sideBar{
@@ -249,10 +280,11 @@ a.btn.btn-blue {
     z-index: 1;
     top: 0;
     right: 0;
-    background-color: #34495E;
+    background-color: #233140;
     overflow-x: hidden;
-    border-left: 5px solid #253342;
-    padding: 1%;
+    border-left: 5px solid #151E26;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 
 ::-webkit-scrollbar {

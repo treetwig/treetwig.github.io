@@ -10,7 +10,7 @@ $(function() {
            }
       );
 
-      	var fileInput = document.getElementById('fileInput');
+      	var fileInput = document.getElementById('file');
 
 		fileInput.addEventListener('change', function(e) {
 			var file = fileInput.files[0];
