@@ -181,6 +181,8 @@ a.btn.btn-blue {
     padding: 28px 28px 28px 28px;
 }
 
+
+
 .niceTextbox {
   display: inline-block;
   -webkit-box-sizing: content-box;
@@ -222,59 +224,73 @@ a.btn.btn-blue {
   cursor: pointer;
 }
 
-#donationbox{
-    position: fixed;
 
-    /* set position */
-    bottom: 1px;
-    right: 1px;
-
-    /* must have dimension */
-    width: 335px;
-    height: 475px;
-    padding-left: 19px;
-    padding-right: 19px;
-    padding-bottom: 19px;
-    margin: 10px;
-
-    background-color: #34495E;
-    border:3px solid #253342;
-    border-radius: 5px
-}
-
-#donationIMGContainer{
+#myChart{
   background-color: white;
-  width: 180px;
-  height: 180px;
-  display:block;
-  margin-left:auto;
-  margin-right:auto;
-  border-radius: 5px;
-  position: relative;
-  border:2px solid #253342;
+  border: 2px solid black;
 }
 
-#donationImage{
-    position: absolute;
-    margin: auto;
+#menuBar{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  color: white;
+  background: #34495E;
+  padding: 5px;
+  border-top: 3px solid #253342;
+  border-bottom: 3px solid #253342;
+}
+
+#sideBar{
+    height: 100%;
+    width: 20vw;
+    position: fixed;
+    z-index: 1;
     top: 0;
-    left: 0;
     right: 0;
-    bottom: 0;
+    background-color: #34495E;
+    overflow-x: hidden;
+    border-left: 5px solid #253342;
+    padding: 1%;
 }
 
-#buttonsContainer{
-	position: absolute;
-	bottom: 35px;
-	right: 35px;
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+::-webkit-scrollbar-track {
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
-#settingsButtonDIV{
-	position: absolute;
-	bottom: 1px;
-}
-
-#infoButtonDIV{
-	position: absolute;
-	top: 1px;
+#investmentTable{
+  width: 70vw;
+  height: 30vw;
+  overflow-y: scroll;
 }

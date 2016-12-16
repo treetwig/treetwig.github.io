@@ -7,6 +7,7 @@
     <script src="js/jquery-3.1.0.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 
     <!-- mobile stuff -->
     <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
@@ -26,8 +27,30 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
 <body>
+<div id="menuBar">
+   <a href="#" id="toggleInfoBox" class="btn btn-blue">Toggle Info</a>
+   <!--<marquee behaviour="scroll" direction="left">text</marquee>-->
+        <i style="color:white;" id="helpicon" class="material-icons">info</i>
+        <i style="color:white;" id="settingsButton" class="material-icons">settings</i>
+</div>
+
+<div id="sideBar">
+  <div id="donationbox">
+    <p style="color:white;">1 BTC ~ <span id="btcprice"></span></p>
+    <p style="color:white;">1 ETH ~ <span id="ethbtcprice"></span> ~ <span id="ethusdprice"></span></p>
+    <hr noshade>
+    <h3 style="color:white;">Profit/Loss:</h3>
+    <p style="color:white;">Total USD P/L: <span id="usdProfitLabel">n/a</span></p>
+    <p style="color:white;">Total BTC P/L: <span id="btcProfitLabel">n/a</span></p>
+      <hr noshade>
+        <canvas id="myChart"></canvas>
+  </div>
+</div>
+
+
+
 <div id="overlay-back"></div>
-  <h1><u>Portfolio</u></h1>
+  <h1 style="margin-top: 5%"><u>Portfolio</u></h1>
   <table id="investmentTable" class="rwd-table">
     <tr>
       <th>Name</th>
@@ -43,27 +66,6 @@
     <div class="investments">
     </div>
   </table>
-
-  <div id="donationbox">
-
-    <p style="color:white;">1 BTC ~ <span id="btcprice"></span></p>
-    <p style="color:white;">1 ETH ~ <span id="ethbtcprice"></span> ~ <span id="ethusdprice"></span></p>
-    <hr noshade>
-    <h3 style="color:white;">Profit/Loss:</h3>
-    <p style="color:white;">Total USD P/L: <span id="usdProfitLabel">n/a</span></p>
-    <p style="color:white;">Total BTC P/L: <span id="btcProfitLabel">n/a</span></p>
-      <hr noshade>
-    <p style="color:white;"><i style="color:#F03E53;" class="material-icons">favorite</i> bitcoin donations appreciated: 1MKtknUDY6P5cinAqUb9f5XNqxYiv3ptA9</p>
-    <div id="donationIMGContainer"><img id="donationImage" width="170px" height="170px" src="img/qr.png" /></div>
-        <div id="buttonsContainer">
-      <div id="infoButtonDIV">
-        <i style="color:white;" id="helpicon" class="material-icons">info</i>
-      </div>
-      <div id="settingsButtonDIV">
-        <i style="color:white;" id="settingsButton" class="material-icons">settings</i>
-      </div>
-    </div>
-  </div>
 
   <div class="hidden holder" id="investmentScreen">
     <div id="popup" class="popup">

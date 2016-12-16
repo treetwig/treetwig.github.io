@@ -4,6 +4,11 @@
       var usdProfitArray = [];
       var btcProfitArray = [];
       var currencyArray = [];
+      var data = [];
+      var backgroundColor = [];
+      var labels = [];
+      var knownCoins = [];
+      var colorList = ["#9c0000", "#ffcc66", "#00ffd4", "#162238", "#38162d", "#ff2b00", "#7a7a00", "#66e6ff", "#000038", "#7a0029", "#381300", "#b9de00", "#316e7a", "#1f00bd", "#ff6699", "#bd714b", "#2f3800", "#00527a", "#9b59de", "#de6f00", "#55ff00", "#006fde", "#4a0059", "#593e24", "#317a31", "#66b3ff", "#ff00ff", "#9c6800", "#317a62", "#00297a", "#9c0068"];
 
       var intRegex = /^\d+$/;
       var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
@@ -18,6 +23,10 @@
       var btcvalue = 0;
       var ethvalue = 0;
       var clickEditID = 0;
+      var knownCoinsAdded = 0;
+      var usdProfit = 0;
+
+      var knownCoinProfits = {};
 
       $(document).ready(function() {
 
@@ -70,10 +79,8 @@
           }
 
         function addElement(importedJSONData){
-          console.log("loaded: " + importedJSONData);
           var obj = jQuery.parseJSON(importedJSONData);
           	if(obj.coinName.startsWith("*")){
-          		console.log("started custom id import");
           		var CMCID = (obj.id.split("*"))[1];
 
           		$.ajax({
@@ -82,10 +89,9 @@
                 async: false,
                 success: function(localJSON){
                 	var coinPrice = Number(localJSON.price.btc);
-                	console.log("coinprice", coinPrice);
 
                 var localProfit = (parseFloat(obj.coinsBought) * coinPrice - (parseFloat(obj.coinsBought) * parseFloat(obj.costPerCoin))).toFixed(8);
-                var usdProfit = (localProfit*parseFloat(btcvalue)).toFixed(2);
+                usdProfit = (localProfit*parseFloat(btcvalue)).toFixed(2);
                 usdProfitArray[added] = parseFloat(usdProfit);
                 btcProfitArray[added] = parseFloat(localProfit);
 
@@ -112,10 +118,20 @@
                   $('#usdProfit_' + added).css('color', '#00C200')
                 }
 
-                console.log("loaded cmcid entry");
                 added++;
+
               }
               });
+
+          		if(knownCoins.indexOf(obj.coinName) < 0){
+          					knownCoinProfits[obj.coinName] = parseFloat(usdProfit);
+
+                			knownCoins[knownCoinsAdded] = obj.coinName;
+                			knownCoinsAdded++;
+                }else{
+                	var localProfit = knownCoinProfits[obj.coinName];
+                	knownCoinProfits[obj.coinName] = (localProfit + parseFloat(usdProfit));
+                }
 
           	}
             if(obj.coinName  != 'BTC' && !obj.coinName.startsWith("*")){
@@ -156,8 +172,18 @@
                   $('#usdProfit_' + added).css('color', '#00C200')
                 }
 
-                console.log("loaded altcoin entry");
                 added++;
+
+                if(knownCoins.indexOf(obj.coinName) < 0){
+          					knownCoinProfits[obj.coinName] = parseFloat(usdProfit);
+
+                			knownCoins[knownCoinsAdded] = obj.coinName;
+                			knownCoinsAdded++;
+                }else{
+                	var localProfit = knownCoinProfits[obj.coinName];
+                	knownCoinProfits[obj.coinName] = (localProfit + parseFloat(usdProfit));
+                }
+
               }
               });
 
@@ -198,18 +224,26 @@
                   $('#usdProfit_' + added).css('color', '#00C200')
                 }
 
-                console.log("loaded bitcoin entry");
                 added++;
+
+                if(knownCoins.indexOf(obj.coinName) < 0){
+          					knownCoinProfits[obj.coinName] = parseFloat(usdProfit);
+
+                			knownCoins[knownCoinsAdded] = obj.coinName;
+                			knownCoinsAdded++;
+                }else{
+                	var localProfit = knownCoinProfits[obj.coinName];
+                	knownCoinProfits[obj.coinName] = (localProfit + parseFloat(usdProfit));
+                }
+
               }
               });
             }
         }
 
         var storageLength = localStorage.length;
-        console.log("localStorage length: " + storageLength);
         if(window.localStorage.length != null){
         for(var i = 0, len = localStorage.length; i < len; ++i){
-          
           addElement(localStorage[i]);
         }
       }
@@ -217,7 +251,6 @@
  // Handle infobox styling and numbers
       var totalUSDProfit = parseFloat((usdProfitArray.reduce(add, 0)).toFixed(2));
       var totalBTCProfit = parseFloat((btcProfitArray.reduce(add, 0)).toFixed(8));
-      console.log("total usd profit and btc profit: ", totalUSDProfit, ",", totalBTCProfit);
       $('#usdProfitLabel').text("$" + totalUSDProfit);
       $('#btcProfitLabel').text("Ƀ" + totalBTCProfit);
 
@@ -291,6 +324,10 @@
           $('#overlay-back').fadeIn(500);
         });
 
+        $('#toggleInfoBox').click(function() {
+        	$('#donationbox').slideToggle();
+        })
+
         // DELETE FUNCTION
 
         $(document).on('click', "i.material-icons.delete", function() {
@@ -299,9 +336,7 @@
           localStorage.removeItem(res[1]);
           var totalEntries = localStorage.length + 1;
           var resINT = parseInt(res[1]);
-          console.log("total entries: " + totalEntries);
           for(var i = resINT+1; i<totalEntries; i++){
-            console.log(i);
             var toDelete = localStorage.getItem(i);
             localStorage.setItem(i-1, toDelete);
             localStorage.removeItem(i);
@@ -317,7 +352,6 @@
           clickedEditID = res[1];
           var storedData = localStorage.getItem(res[1]);
           var JSONobj = jQuery.parseJSON(storedData);
-          console.log(JSONobj);
           var coinID = JSONobj.id;
           var cBought = JSONobj.coinsBought;
           var CPC = JSONobj.costPerCoin;
@@ -330,12 +364,39 @@
           $('#overlay-back').fadeIn(500);
         });
 
+        data = $.map(knownCoinProfits, function(value, index){
+        	return[value];
+        });
+
+        labels = knownCoins;
+        for(i = 0; i < labels.length; i++){
+         backgroundColor[i] = colorList[i];
+    	}
+
+		ctx = document.getElementById("myChart").getContext('2d');
+		var myChart = new Chart(ctx, {
+		  type: 'bar',
+		  data: {
+		    labels: labels,
+		    datasets: [{
+		      label: "Profit",
+		      backgroundColor: backgroundColor,
+		      data: data
+		    }]
+		  },
+		  options: {
+		  	title: {
+		  		display: true,
+		  		text: 'Profit'
+		  	}
+		  }
+		});
+
         $('#saveEditedInvestment').click(function() {
           var newID = $('#editIDTextbox').val().toUpperCase();
           var newCBought = $('#editOwnedTextbox').val();
           var newCPC = $('#editCostPerCoinTextbox').val();
           if((intRegex.test(newCBought) || floatRegex.test(newCBought)) && (intRegex.test(newCPC) || floatRegex.test(newCPC)) && (newID.startsWith("*"))){
-          	console.log(newID, newCBought, newCPC);
           	var CMCID = (newID.split("*"))[1];
           	$.getJSON("https://coinmarketcap-nexuist.rhcloud.com/api/" + CMCID, function(json){
           		if(json.error == "Requested coin does not exist or has not been updated yet."){
@@ -347,12 +408,10 @@
           	});
           }else{
           if((intRegex.test(newCBought) || floatRegex.test(newCBought)) && (intRegex.test(newCPC) || floatRegex.test(newCPC)) && (currencyArray.indexOf(newID) > -1)){
-            console.log(newID, newCBought, newCPC);
             localStorage[clickedEditID] = "{\"id\":\""+newID+"\", \"costPerCoin\":\""+newCPC+"\", \"coinsBought\":\""+newCBought+"\", \"coinName\":\""+newID+"\"}";
             location.reload();
           }else{
             alert("invalid entry");
-            console.log("invalid entry");
           }
       }
         });
@@ -367,7 +426,6 @@
           function insertLocalStorage(jsonData){
 
           if (jsonData.error != "Invalid currency pair.") {
-              console.log("valid id entered");
 
               if(coinID == 'BTC'){
                 profit = currentProfit.toFixed(2);
@@ -386,15 +444,12 @@
         }
 
 		if((intRegex.test(coinsBought) || floatRegex.test(coinsBought)) && (intRegex.test(costPerCoin) || floatRegex.test(costPerCoin)) && coinID.startsWith("*")){
-          console.log("custom CMCID entered");
           var CMCID = (coinID.split("*"))[1];
-          console.log("CMCID: ", CMCID);
 
           $.getJSON("https://coinmarketcap-nexuist.rhcloud.com/api/" + CMCID, function(json){
           	if(json.error == "Requested coin does not exist or has not been updated yet."){
           		alert("invalid coin!");
           	}else{
-          	console.log(json);
           	jsonData = json;
           	coinsBoughtFloat = parseFloat(coinsBought);
             costPerCoinFloat = parseFloat(costPerCoin);
