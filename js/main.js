@@ -375,7 +375,7 @@
 
 		ctx = document.getElementById("myChart").getContext('2d');
 		var myChart = new Chart(ctx, {
-		  type: 'bar',
+		  type: 'doughnut',
 		  data: {
 		    labels: labels,
 		    datasets: [{
@@ -387,7 +387,7 @@
 		  options: {
 		  	title: {
 		  		display: true,
-		  		text: 'Profit'
+		  		text: 'Profit ($)'
 		  	}
 		  }
 		});
