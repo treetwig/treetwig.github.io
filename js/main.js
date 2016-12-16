@@ -325,8 +325,8 @@
         });
 
         $('#toggleInfoBox').click(function() {
-        	$('#donationbox').slideToggle();
-        })
+        	$('#sideBar').toggle("slide");
+        });
 
         // DELETE FUNCTION
 
