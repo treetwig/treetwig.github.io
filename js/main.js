@@ -358,7 +358,7 @@
 
 		ctx = document.getElementById("myChart").getContext('2d');
 		var myChart = new Chart(ctx, {
-		  type: 'doughnut',
+		  type: 'bar',
 		  data: {
 		    labels: labels,
 		    datasets: [{
