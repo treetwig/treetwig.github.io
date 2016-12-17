@@ -248,7 +248,7 @@
           addElement(localStorage[i]);
         }
       }
- 
+
  // Handle infobox styling and numbers
      var totalUSDProfit = parseFloat((usdProfitArray.reduce(add, 0)).toFixed(2));
      var totalBTCProfit = parseFloat((btcProfitArray.reduce(add, 0)).toFixed(8));
@@ -442,7 +442,7 @@
             profit = 0;
           	insertLocalStorage(jsonData);
           }
-          
+
           });
           }else{
 
