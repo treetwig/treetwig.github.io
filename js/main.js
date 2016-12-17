@@ -6,6 +6,7 @@
       var currencyArray = [];
       var data = [];
       var backgroundColor = [];
+      var used = [];
       var labels = [];
       var knownCoins = [];
       var colorList = ["#9c0000", "#ffcc66", "#00ffd4", "#162238", "#38162d", "#ff2b00", "#7a7a00", "#66e6ff", "#000038", "#7a0029", "#381300", "#b9de00", "#316e7a", "#1f00bd", "#ff6699", "#bd714b", "#2f3800", "#00527a", "#9b59de", "#de6f00", "#55ff00", "#006fde", "#4a0059", "#593e24", "#317a31", "#66b3ff", "#ff00ff", "#9c6800", "#317a62", "#00297a", "#9c0068"];
@@ -349,8 +350,11 @@
 
         labels = knownCoins;
         for(i = 0; i < labels.length; i++){
-         backgroundColor[i] = colorList[i];
-    	}
+            var index = Math.floor(Math.random()*colorList.length);
+            var pickedColor = colorList[index];
+            colorList.splice(index, 1);
+            backgroundColor[i] = pickedColor;
+    	  }
 
 		ctx = document.getElementById("myChart").getContext('2d');
 		var myChart = new Chart(ctx, {
