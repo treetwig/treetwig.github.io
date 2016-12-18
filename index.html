@@ -1,128 +1,128 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Portfolio</title>
-    <script src="js/modernizr.js" type="text/javascript"></script>
-    <script src="js/jquery-3.1.0.min.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/backup.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio</title>
+  <script src="js/modernizr.js" type="text/javascript"></script>
+  <script src="js/jquery-3.1.0.min.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/backup.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 
-    <!-- mobile stuff -->
-    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="img/manifest.json">
-    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#253342">
-    <link rel="shortcut icon" href="img/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="TreeTwig">
-    <meta name="application-name" content="TreeTwig">
-    <meta name="msapplication-config" content="img/browserconfig.xml">
-    <meta name="theme-color" content="#253342">
-    <!-- end mobile stuff -->
+  <!-- mobile stuff -->
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="img/manifest.json">
+  <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#253342">
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <meta name="apple-mobile-web-app-title" content="TreeTwig">
+  <meta name="application-name" content="TreeTwig">
+  <meta name="msapplication-config" content="img/browserconfig.xml">
+  <meta name="theme-color" content="#253342">
+  <!-- end mobile stuff -->
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  </head>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 <body>
-<div id="menuBar">
-<span id="version"></span><i style="color: #D62424" class="material-icons">favorite</i> BTC donations appreciated: 1ExxS1UkRvUu4SFGJww4DUafoapwvrJpyr
-</div>
-
-<div id="sideBar">
-  <div id="donationbox">
-    <h3 style="color: white">Current Prices:</h1>
-    <p style="color:white;">1 BTC ~ <span id="btcprice"></span></p>
-    <p style="color:white;">1 ETH ~ <span id="ethbtcprice"></span> ~ <span id="ethusdprice"></span></p>
-    <hr noshade>
-    <h3 style="color:white;">Profit/Loss:</h3>
-    <p style="color:white;">Total USD P/L: <span id="usdProfitLabel">n/a</span></p>
-    <p style="color:white;">Total BTC P/L: <span id="btcProfitLabel">n/a</span></p>
-      <hr noshade>
-      <canvas id="myChart"></canvas>
-      <hr noshade>
-      <h3 style="color: white">Settings:</h1>
-      <ul style="list-style-type: circle; color: white">
-        <li>
-          <a href="#" id="backupButton"><span style="color: #60D624"><i class="material-icons">backup</i> backup</span></a>
-        </li>
-        <li>
-          <label for="file"><span class="pointer" style="color: white"><i class="material-icons">attach_file</i> attach file</span></label>
-        </li>
-        <li>
-          <a href="#" id="upload"><span style="color: #2477D6"><i class="material-icons">restore</i> restore</span></a><input type="file" id="file" name="file" class="inputfile" />
-        </li>
-        <li>
-          <a href="#" id="clearAll"><span style="color: #D62424"><i class="material-icons">delete_sweep</i> delete all</span></a>
-        </li>
-      </ul>
-      <hr noshade>
-      <h3 style="color: white">Help:</h1>
-      <ul style="color: white">
-      <li>
-        <p>Backing up: attach file first, and then press restore.</p>
-      </li>
-      <li>
-        <p>CoinMarketCap coin: start coin ID with asterisk. e.g. *icn or *gnt</p>
-      </li>
-      </ul>
+  <div id="menuBar">
+    <span id="version"></span><i style="color: #D62424" class="material-icons">favorite</i> BTC donations appreciated: 1ExxS1UkRvUu4SFGJww4DUafoapwvrJpyr
   </div>
-</div>
 
-
-
-<div id="overlay-back"></div>
-  <h1 style="margin-top: 5%"><u>Portfolio</u></h1>
-  <table id="investmentTable" class="rwd-table">
-    <tr>
-      <th>Name</th>
-      <th>Amount Purchased</th>
-      <th>Price/Coin Paid</th>
-      <th>Profit (Ƀ)</th>
-      <th>Profit ($)</th>
-      <th>Price (Ƀ)</th>
-      <th>Price ($)</th>
-      <th>Delete</th>
-      <th><i style="color:white;" id="addInvestment" class="material-icons">add_circle</i></th>
-    </tr>
-    <div class="investments">
-    </div>
-  </table>
-
-  <div class="hidden holder" id="investmentScreen">
-    <div id="popup" class="popup">
-      <div class="content">
-        <form>
-          <input type="text" class="niceTextbox" id="coinNameTextbox" placeholder="btc, eth, etc. or CMCID" />
-          <input type="text" class="niceTextbox" id="ownedTextbox" placeholder="amount purchased" />
-          <input type="text" class="niceTextbox" id="costPerCoinTextbox" placeholder="cost per coin" />
-        </form>
-        <div id="top-right"><i id="closeButton" class="material-icons">close</i></div>
-        <div id="bottom-right">
-          <a href="#" class="btn btn-blue" id="saveInvestment">Save</a>
+  <div id="sideBar">
+    <div id="donationbox">
+      <h3 style="color: white">Current Prices:</h1>
+        <p style="color:white;">1 BTC ~ <span id="btcprice"></span></p>
+        <p style="color:white;">1 ETH ~ <span id="ethbtcprice"></span> ~ <span id="ethusdprice"></span></p>
+        <hr noshade>
+        <h3 style="color:white;">Profit/Loss:</h3>
+        <p style="color:white;">Total USD P/L: <span id="usdProfitLabel">n/a</span></p>
+        <p style="color:white;">Total BTC P/L: <span id="btcProfitLabel">n/a</span></p>
+        <hr noshade>
+        <canvas id="myChart"></canvas>
+        <hr noshade>
+        <h3 style="color: white">Settings:</h1>
+          <ul style="list-style-type: circle; color: white">
+            <li>
+              <a href="#" id="backupButton"><span style="color: #60D624"><i class="material-icons">backup</i> backup</span></a>
+            </li>
+            <li>
+              <label for="file"><span class="pointer" style="color: white"><i class="material-icons">attach_file</i> attach file</span></label>
+            </li>
+            <li>
+              <a href="#" id="upload"><span style="color: #2477D6"><i class="material-icons">restore</i> restore</span></a><input type="file" id="file" name="file" class="inputfile" />
+            </li>
+            <li>
+              <a href="#" id="clearAll"><span style="color: #D62424"><i class="material-icons">delete_sweep</i> delete all</span></a>
+            </li>
+          </ul>
+          <hr noshade>
+          <h3 style="color: white">Help:</h1>
+            <ul style="color: white">
+              <li>
+                <p>Backing up: attach file first, and then press restore.</p>
+              </li>
+              <li>
+                <p>CoinMarketCap coin: start coin ID with asterisk. e.g. *icn or *gnt</p>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="hidden holder" id="editScreen">
-    <div id="popup" class="popup">
-      <div class="content">
-        <form>
-          <input type="text" class="niceTextbox" id="editIDTextbox" placeholder="coin ID" />
-          <input type="text" class="niceTextbox" id="editOwnedTextbox" placeholder="amount purchased" />
-          <input type="text" class="niceTextbox" id="editCostPerCoinTextbox" placeholder="cost per coin" />
-        </form>
-        <div id="top-right"><i id="closeEditScreen" class="material-icons">close</i></div>
-        <div id="bottom-right">
-          <a href="#" class="btn btn-blue" id="saveEditedInvestment">Save</a>
+
+
+        <div id="overlay-back"></div>
+        <h1 style="margin-top: 5%"><u>Portfolio</u></h1>
+        <table id="investmentTable" class="rwd-table">
+          <tr>
+            <th>Name</th>
+            <th>Amount Purchased</th>
+            <th>Price/Coin Paid</th>
+            <th>Profit (Ƀ)</th>
+            <th>Profit ($)</th>
+            <th>Price (Ƀ)</th>
+            <th>Price ($)</th>
+            <th>Delete</th>
+            <th><i style="color:white;" id="addInvestment" class="material-icons">add_circle</i></th>
+          </tr>
+          <div class="investments">
+          </div>
+        </table>
+
+        <div class="hidden holder" id="investmentScreen">
+          <div id="popup" class="popup">
+            <div class="content">
+              <form>
+                <input type="text" class="niceTextbox" id="coinNameTextbox" placeholder="btc, eth, etc. or CMCID" />
+                <input type="text" class="niceTextbox" id="ownedTextbox" placeholder="amount purchased" />
+                <input type="text" class="niceTextbox" id="costPerCoinTextbox" placeholder="cost per coin" />
+              </form>
+              <div id="top-right"><i id="closeButton" class="material-icons">close</i></div>
+              <div id="bottom-right">
+                <a href="#" class="btn btn-blue" id="saveInvestment">Save</a>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-</body>
-</html>
+        <div class="hidden holder" id="editScreen">
+          <div id="popup" class="popup">
+            <div class="content">
+              <form>
+                <input type="text" class="niceTextbox" id="editIDTextbox" placeholder="coin ID" />
+                <input type="text" class="niceTextbox" id="editOwnedTextbox" placeholder="amount purchased" />
+                <input type="text" class="niceTextbox" id="editCostPerCoinTextbox" placeholder="cost per coin" />
+              </form>
+              <div id="top-right"><i id="closeEditScreen" class="material-icons">close</i></div>
+              <div id="bottom-right">
+                <a href="#" class="btn btn-blue" id="saveEditedInvestment">Save</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </body>
+      </html>
