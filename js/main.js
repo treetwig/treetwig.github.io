@@ -325,7 +325,24 @@
 
         // END DELETE FUNCTION
 
-        $(document).on('click', "i.material-icons.edit", function() {});
+        $(document).on('click', "i.material-icons.edit", function() {
+          clickedLinkID = $(this).attr('id');
+          var res = clickedLinkID.split("_");
+          clickedEditID = res[1];
+          var storedData = localStorage.getItem(res[1]);
+          var JSONobj = jQuery.parseJSON(storedData);
+          console.log(JSONobj);
+          var coinID = JSONobj.id;
+          var cBought = JSONobj.coinsBought;
+          var CPC = JSONobj.costPerCoin;
+
+          $('#editIDTextbox').val(coinID);
+          $('#editOwnedTextbox').val(cBought);
+          $('#editCostPerCoinTextbox').val(CPC);
+
+          $("#editScreen").show();
+          $('#overlay-back').fadeIn(500);
+        });
 
         data = $.map(knownCoinProfits, function(value, index) {
           return [value];
